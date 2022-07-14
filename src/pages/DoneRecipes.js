@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
-function Foods({ history }) {
+function DoneRecipes({ history }) {
   return (
     <div>
-      <Header page="Foods" history={ history } />
-      <div>Foods</div>
+      <Header page="Done Recipes" history={ history } />
+      doneRecipes
     </div>
   );
 }
 
-Foods.propTypes = {
+DoneRecipes.propTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 }.isRequired;
 
-export default Foods;
+export default DoneRecipes;

@@ -5,6 +5,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Provider from './context/Provider';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
+import DetailsFoods from './pages/DetailsFoods';
+import DetailsDrinks from './pages/DetailsDrinks';
+import Profile from './pages/Profile';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
@@ -12,15 +18,15 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/foods" component={ Foods } />
-          <Route path="/drinks" component={ Login } />
-          <Route path="/foods/:id" component={ Login } />
-          <Route path="/drinks/:id" component={ Login } />
-          <Route path="/foods/:id/in-progress" component={ Login } />
-          <Route path="/drinks/:id/in-progress" component={ Login } />
-          <Route path="/profile" component={ Login } />
-          <Route path="/done-recipes" component={ Login } />
-          <Route path="/favorite-recipes" component={ Login } />
+          <Route exact path="/foods" component={ Foods } />
+          <Route exact path="/drinks" component={ Drinks } />
+          <Route path="/foods/:id" component={ DetailsFoods } />
+          <Route path="/drinks/:id" component={ DetailsDrinks } />
+          <Route path="/foods/:id/in-progress" component={ DetailsFoods } />
+          <Route path="/drinks/:id/in-progress" component={ DetailsDrinks } />
+          <Route path="/profile" component={ Profile } />
+          <Route path="/done-recipes" component={ DoneRecipes } />
+          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         </Switch>
       </BrowserRouter>
     </Provider>
