@@ -15,17 +15,29 @@ function Header({ page, history }) {
         data-testid="profile-top-btn"
         type="button"
         onClick={ () => history.push('/profile') }
+        src="./images/profileIcon.svg"
       >
-        <img src="./images/profileIcon.svg" alt="profileicon" />
+        <img
+          src="./images/profileIcon.svg"
+          alt="profileIcon"
+        />
       </button>
-      <button
-        data-testid="search-top-btn"
-        type="button"
-        onClick={ () => setIsSearching(!isSearching) }
-      >
-        <img src="./images/searchIcon.svg" alt="searchicon" />
-      </button>
-      <h1>{title}</h1>
+      { page === 'Profile'
+        || page === 'Done Recipes' || page === 'Favorite Recipes' ? null : (
+          <button
+            type="button"
+            data-testid="search-top-btn"
+            onClick={ () => setIsSearching(!isSearching) }
+            src="./images/searchIcon.svg"
+          >
+            <img
+              src="./images/searchIcon.svg"
+              alt="searchIcon"
+            />
+          </button>
+        )}
+
+      <h1 data-testid="page-title">{title}</h1>
       {isSearching && (
         <label htmlFor="searchInput">
           <input

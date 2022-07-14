@@ -1,0 +1,4 @@
+
+> recipes-app-test@0.1.0 cy
+> cypress run
+
