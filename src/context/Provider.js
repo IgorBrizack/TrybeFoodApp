@@ -4,7 +4,7 @@ import context from './Context';
 
 function Provider({ children }) {
   const providerState = {
-    data,
+    data: '',
   };
 
   return (
