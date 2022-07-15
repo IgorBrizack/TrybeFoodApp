@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function CardFood({ meal, page, index }) {
   if (page === 'foods') {
@@ -15,17 +16,20 @@ function CardFood({ meal, page, index }) {
           width: '50%',
         } }
       >
-        <img
-          data-testid={ `${index}-card-img` }
-          src={ meal.strMealThumb }
-          alt="mealCardImg"
-          style={ { width: '100%' } }
-        />
-        <h3
-          data-testid={ `${index}-card-name` }
-        >
-          { meal.strMeal }
-        </h3>
+        <Link to={ `foods/${meal.idMeal}` }>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ meal.strMealThumb }
+            alt="mealCardImg"
+            style={ { width: '100%' } }
+          />
+          <h3
+            data-testid={ `${index}-card-name` }
+            style={ { textAlign: 'center' } }
+          >
+            { meal.strMeal }
+          </h3>
+        </Link>
       </div>
     );
   }
