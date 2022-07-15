@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import context from '../context/Context';
 import Header from '../components/Header';
 import CardFood from '../components/CardFood';
+import Footer from '../components/Footer';
 
 const NUMBER_INDEX_MEALS = 12;
 const NUMBER_INDEX_CATEGORY = 5;
@@ -80,6 +81,7 @@ function Foods() {
             ))
         ) }
       </section>
+      <Footer />
     </div>
   );
 }

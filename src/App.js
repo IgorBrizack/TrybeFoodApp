@@ -4,13 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Provider from './context/Provider';
 import Login from './pages/Login';
-import Foods from './pages/Foods';
-import Drinks from './pages/Drinks';
 import DetailsFoods from './pages/DetailsFoods';
 import DetailsDrinks from './pages/DetailsDrinks';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import DoneRecipes from './pages/DoneRecipes';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
@@ -18,8 +17,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/foods" component={ Foods } />
-          <Route exact path="/drinks" component={ Drinks } />
+          <Route exact path="/foods" component={ Recipes } />
+          <Route exact path="/drinks" component={ Recipes } />
           <Route path="/foods/:id" component={ DetailsFoods } />
           <Route path="/drinks/:id" component={ DetailsDrinks } />
           <Route path="/foods/:id/in-progress" component={ DetailsFoods } />
