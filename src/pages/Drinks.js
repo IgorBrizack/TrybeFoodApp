@@ -10,14 +10,34 @@ const NUMBER_INDEX_CATEGORY = 5;
 
 function Drinks() {
   const history = useHistory();
-  const { setIsFoodOrDrink } = useContext(context);
+  const { setIsFoodOrDrink,
+    linkToDetails, dataAPI } = useContext(context);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [inittialDrinks, setInittialDrinks] = useState([]);
+  const [filteredBySearch, setFilteredBySearch] = useState({
+    isFiltered: false,
+    filteredItems: [],
+  });
   const [filteredByCategory, setFilteredByCategory] = useState({
     isFiltered: false,
     category: '',
     filteredItems: [],
   });
+
+  useEffect(() => {
+    if (Array.isArray(dataAPI) && dataAPI[0]) {
+      setFilteredBySearch({
+        isFiltered: true,
+        filteredItems: [...dataAPI],
+      });
+    }
+  }, [dataAPI]);
+
+  useEffect(() => {
+    if (linkToDetails.length > 0) {
+      history.push(linkToDetails);
+    }
+  }, [linkToDetails]);
 
   useEffect(() => {
     async function getDrinksFromAPI() {
@@ -36,6 +56,9 @@ function Drinks() {
   }, []);
 
   async function toggleFilter(category) {
+    setFilteredBySearch({
+      isFiltered: false,
+    });
     if (category === 'All') {
       return setFilteredByCategory({
         isFiltered: false,
@@ -102,12 +125,12 @@ function Drinks() {
           ) }
         </ul>
       </nav>
-      { filteredByCategory.isFiltered ? (
+      { filteredBySearch.isFiltered ? (
         <section
           style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
         >
           {
-            filteredByCategory.filteredItems
+            filteredBySearch.filteredItems
               .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
               .map((drinkFiltered, index) => (
                 <div
@@ -125,27 +148,53 @@ function Drinks() {
           }
         </section>
       ) : (
-        <section
-          style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-        >
-          { inittialDrinks[0] && (
-            inittialDrinks.filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
-              .map((drink, index) => (
-                <div
-                  key={ drink.idDrink }
-                  style={ {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    margin: '20px 0',
-                    width: '50%',
-                  } }
-                >
-                  <CardDrink drink={ drink } page="drinks" index={ index } />
-                </div>
-              ))
+        <div>
+          { filteredByCategory.isFiltered ? (
+            <section
+              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+            >
+              {
+                filteredByCategory.filteredItems
+                  .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
+                  .map((drinkFiltered, index) => (
+                    <div
+                      key={ drinkFiltered.idDrink }
+                      style={ {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '20px 0',
+                        width: '50%',
+                      } }
+                    >
+                      <CardDrink drink={ drinkFiltered } page="drinks" index={ index } />
+                    </div>
+                  ))
+              }
+            </section>
+          ) : (
+            <section
+              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+            >
+              { inittialDrinks[0] && (
+                inittialDrinks.filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
+                  .map((drink, index) => (
+                    <div
+                      key={ drink.idDrink }
+                      style={ {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '20px 0',
+                        width: '50%',
+                      } }
+                    >
+                      <CardDrink drink={ drink } page="drinks" index={ index } />
+                    </div>
+                  ))
+              ) }
+            </section>
           ) }
-        </section>
-      ) }
+        </div>
+      )}
       <Footer />
     </div>
   );

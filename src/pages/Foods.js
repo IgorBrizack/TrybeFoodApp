@@ -9,15 +9,35 @@ const NUMBER_INDEX_MEALS = 12;
 const NUMBER_INDEX_CATEGORY = 5;
 
 function Foods() {
+  const { setIsFoodOrDrink,
+    linkToDetails, dataAPI } = useContext(context);
   const history = useHistory();
-  const { setIsFoodOrDrink } = useContext(context);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [inittialFoods, setInittialFoods] = useState([]);
+  const [filteredBySearch, setFilteredBySearch] = useState({
+    isFiltered: false,
+    filteredItems: [],
+  });
   const [filteredByCategory, setFilteredByCategory] = useState({
     isFiltered: false,
     category: '',
     filteredItems: [],
   });
+
+  useEffect(() => {
+    if (Array.isArray(dataAPI) && dataAPI[0]) {
+      setFilteredBySearch({
+        isFiltered: true,
+        filteredItems: [...dataAPI],
+      });
+    }
+  }, [dataAPI]);
+
+  useEffect(() => {
+    if (linkToDetails.length > 0) {
+      history.push(linkToDetails);
+    }
+  }, [linkToDetails]);
 
   useEffect(() => {
     async function getFoodsFromAPI() {
@@ -36,6 +56,9 @@ function Foods() {
   }, []);
 
   async function toggleFilter(category) {
+    setFilteredBySearch({
+      isFiltered: false,
+    });
     if (category === 'All') {
       return setFilteredByCategory({
         isFiltered: false,
@@ -101,12 +124,12 @@ function Foods() {
           ) }
         </ul>
       </nav>
-      { filteredByCategory.isFiltered ? (
+      { filteredBySearch.isFiltered ? (
         <section
           style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
         >
           {
-            filteredByCategory.filteredItems
+            filteredBySearch.filteredItems
               .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
               .map((mealFiltered, index) => (
                 <div
@@ -124,26 +147,52 @@ function Foods() {
           }
         </section>
       ) : (
-        <section
-          style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-        >
-          { inittialFoods[0] && (
-            inittialFoods.filter((_meal, index) => index < NUMBER_INDEX_MEALS)
-              .map((meal, index) => (
-                <div
-                  key={ meal.idMeal }
-                  style={ {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    margin: '20px 0',
-                    width: '50%',
-                  } }
-                >
-                  <CardFood meal={ meal } page="foods" index={ index } />
-                </div>
-              ))
+        <div>
+          { filteredByCategory.isFiltered ? (
+            <section
+              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+            >
+              {
+                filteredByCategory.filteredItems
+                  .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
+                  .map((mealFiltered, index) => (
+                    <div
+                      key={ mealFiltered.idMeal }
+                      style={ {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '20px 0',
+                        width: '50%',
+                      } }
+                    >
+                      <CardFood meal={ mealFiltered } page="foods" index={ index } />
+                    </div>
+                  ))
+              }
+            </section>
+          ) : (
+            <section
+              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+            >
+              { inittialFoods[0] && (
+                inittialFoods.filter((_meal, index) => index < NUMBER_INDEX_MEALS)
+                  .map((meal, index) => (
+                    <div
+                      key={ meal.idMeal }
+                      style={ {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '20px 0',
+                        width: '50%',
+                      } }
+                    >
+                      <CardFood meal={ meal } page="foods" index={ index } />
+                    </div>
+                  ))
+              ) }
+            </section>
           ) }
-        </section>
+        </div>
       ) }
       <Footer />
     </div>
