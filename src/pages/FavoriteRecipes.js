@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
 function FavoriteRecipes() {
-  const { history } = useHistory();
+  const history = useHistory();
   return (
     <div>
       <Header page="Favorite Recipes" history={ history } />

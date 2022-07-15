@@ -4,8 +4,15 @@ import context from '../context/Context';
 import Header from '../components/Header';
 
 function Foods() {
-  const { history } = useHistory();
-  const { setIsFoodOrDrink } = useContext(context);
+  const history = useHistory();
+  const { setIsFoodOrDrink,
+    linkToDetails } = useContext(context);
+
+  useEffect(() => {
+    if (linkToDetails.length > 0) {
+      history.push(linkToDetails);
+    }
+  }, [linkToDetails]);
 
   useEffect(() => {
     setIsFoodOrDrink('Foods');
