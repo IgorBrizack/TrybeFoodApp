@@ -1,7 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-// import SearchBar from './SearchBar';
 
 function Footer() {
   const history = useHistory();
@@ -33,9 +31,5 @@ function Footer() {
     </div>
   );
 }
-
-// Footer.propTypes = {
-//   page: PropTypes.string,
-// }.isRequired;
 
 export default Footer;
