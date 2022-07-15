@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import context from '../context/Context';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Foods() {
   const { history } = useHistory();
@@ -15,6 +16,7 @@ function Foods() {
     <div>
       <Header page="Foods" history={ history } />
       <div>Foods</div>
+      <Footer />
     </div>
   );
 }
