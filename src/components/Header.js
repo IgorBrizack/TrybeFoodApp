@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
-function Header({ page, history }) {
+function Header({ page }) {
+  const history = useHistory();
   const [title, setTitle] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
@@ -38,22 +41,13 @@ function Header({ page, history }) {
         )}
 
       <h1 data-testid="page-title">{title}</h1>
-      {isSearching && (
-        <label htmlFor="searchInput">
-          <input
-            placeholder="buscar"
-            data-testid="search-input"
-            name="searchInput"
-            id="searchInput"
-            type="text"
-          />
-        </label>)}
+      {isSearching && <SearchBar /> }
     </div>
   );
 }
 
 Header.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
+  page: PropTypes.string,
 }.isRequired;
 
 export default Header;

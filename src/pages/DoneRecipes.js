@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
-function DoneRecipes({ history }) {
+function DoneRecipes() {
+  const { history } = useHistory();
   return (
     <div>
       <Header page="Done Recipes" history={ history } />
@@ -10,9 +10,5 @@ function DoneRecipes({ history }) {
     </div>
   );
 }
-
-DoneRecipes.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-}.isRequired;
 
 export default DoneRecipes;

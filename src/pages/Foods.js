@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
-function Foods({ history }) {
+function Foods() {
+  const { history } = useHistory();
   return (
     <div>
       <Header page="Foods" history={ history } />
@@ -10,9 +11,5 @@ function Foods({ history }) {
     </div>
   );
 }
-
-Foods.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-}.isRequired;
 
 export default Foods;

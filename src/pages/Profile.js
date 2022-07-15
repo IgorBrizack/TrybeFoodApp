@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
-function Profile({ history }) {
+function Profile() {
+  const history = useHistory();
+
   return (
     <div>
       <Header page="Profile" history={ history } />
@@ -10,9 +12,5 @@ function Profile({ history }) {
     </div>
   );
 }
-
-Profile.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-}.isRequired;
 
 export default Profile;

@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 
-function FavoriteRecipes({ history }) {
+function FavoriteRecipes() {
+  const { history } = useHistory();
   return (
     <div>
       <Header page="Favorite Recipes" history={ history } />
@@ -10,9 +11,5 @@ function FavoriteRecipes({ history }) {
     </div>
   );
 }
-
-FavoriteRecipes.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any),
-}.isRequired;
 
 export default FavoriteRecipes;
