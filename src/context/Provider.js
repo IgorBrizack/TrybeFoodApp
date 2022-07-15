@@ -18,12 +18,17 @@ function Provider({ children }) {
 
   // Essa condicional se aplica quando há apenas um item quando é feita a busca na Api, dessa forma ela deve ser redirecionada a página de detalhes do item em questão de forma imediata.
   const isOnlyOneItem = (response) => {
-    console.log(response);
-    if (response.length > 0 && isFoodOrDrink === 'Foods') {
-      setLinkToDetails(`/foods/${response[0].idMeal}`);
-    }
-    if (response.length > 0 && isFoodOrDrink === 'Drinks') {
-      setLinkToDetails(`/drinks/${response[0].idDrink}`);
+    if (!response) {
+      global
+        .alert('Sorry, we haven\'t found any recipes for these filters.');
+      setDataApi([]);
+    } else {
+      if (response.length === 1 && isFoodOrDrink === 'Foods') {
+        setLinkToDetails(`/foods/${response[0].idMeal}`);
+      }
+      if (response.length === 1 && isFoodOrDrink === 'Drinks') {
+        setLinkToDetails(`/drinks/${response[0].idDrink}`);
+      }
     }
   };
 
@@ -39,7 +44,7 @@ function Provider({ children }) {
         isOnlyOneItem(ingredientResponse.meals);
       } else {
         ingredientResponse = await fetch(`${INGREDIENT_ENDPOINT_DRINK}${search}`)
-          .then((response) => response.json());
+          .then((response) => response.json().catch((error) => error));
         setDataApi(ingredientResponse.drinks);
         isOnlyOneItem(ingredientResponse.drinks);
       }
@@ -77,11 +82,11 @@ function Provider({ children }) {
     }
   };
 
-  useEffect(() => {
-    console.log(dataAPI);
+  // useEffect(() => {
+  //   console.log(dataAPI);
 
-    console.log('chegando aqui');
-  }, [dataAPI]);
+  //   console.log('chegando aqui');
+  // }, [dataAPI]);
 
   useEffect(() => {
     if (toSearch.search.length > 0) requestDataFromApi();
@@ -91,6 +96,7 @@ function Provider({ children }) {
     setToSearch,
     setIsFoodOrDrink,
     linkToDetails,
+    dataAPI,
   };
 
   return (
