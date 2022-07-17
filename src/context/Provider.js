@@ -82,12 +82,6 @@ function Provider({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(dataAPI);
-
-  //   console.log('chegando aqui');
-  // }, [dataAPI]);
-
   useEffect(() => {
     if (toSearch.search.length > 0) requestDataFromApi();
   }, [toSearch]);
