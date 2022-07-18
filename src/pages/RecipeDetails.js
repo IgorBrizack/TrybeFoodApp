@@ -1,16 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import context from '../context/Context';
+import CarouselFadeExample from '../components/Carousel';
 
 const MEALS_DETAILS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINKS_DETAILS_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const DRINKS_TO_RECOMMEND_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const MEALS_TO_RECOMMEND_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const QTD_INGREDIENTS = 20;
 const ZERO = 0;
 
 function RecipeDetails() {
+  const { setRecommended } = useContext(context);
   const history = useHistory();
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
+
+  const recommendedItems = async (type) => {
+    let recommendation = '';
+    if (type === 'foods') {
+      recommendation = await fetch(MEALS_TO_RECOMMEND_ENDPOINT)
+        .then((response) => response.json());
+      setRecommended(recommendation.meals);
+    } else {
+      recommendation = await fetch(DRINKS_TO_RECOMMEND_ENDPOINT)
+        .then((response) => response.json());
+      setRecommended(recommendation.drinks);
+    }
+  };
 
   const fetchItemDetails = async () => {
     let resultsDetailAPI = '';
@@ -22,11 +40,13 @@ function RecipeDetails() {
         .replace(/\D/gim, '')}`).then((response) => response.json());
       setDataItem(resultsDetailAPI.meals);
       setIsFoodOrDrinkDetails('foods');
+      recommendedItems('drinks');
     } else {
       resultsDetailAPI = await fetch(`${DRINKS_DETAILS_ENDPOINT}${pathNameData
         .replace(/\D/gim, '')}`).then((response) => response.json());
       setDataItem(resultsDetailAPI.drinks);
       setIsFoodOrDrinkDetails('drinks');
+      recommendedItems('foods');
     }
   };
 
@@ -103,7 +123,14 @@ function RecipeDetails() {
             height="315"
             src={ value.strYoutube }
           />
-          <p data-testid={ `${index}-recomendation-card` }>recomendações</p>
+          <CarouselFadeExample />
+          <button
+            style={ { position: 'fixed', bottom: '0px' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
         </div>
       )))}
       { isFoodOrDrinkDetails === 'drinks' && (dataItem.map((value, index) => (
@@ -152,7 +179,14 @@ function RecipeDetails() {
           <p data-testid="instructions">
             {value.strInstructions}
           </p>
-          <p data-testid={ `${index}-recomendation-card` }>recomendações</p>
+          <CarouselFadeExample />
+          <button
+            style={ { position: 'fixed', bottom: '0px' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
         </div>
       )))}
     </div>

@@ -15,6 +15,7 @@ function Provider({ children }) {
   const [dataAPI, setDataApi] = useState([]);
   const [isFoodOrDrink, setIsFoodOrDrink] = useState('');
   const [linkToDetails, setLinkToDetails] = useState('');
+  const [recommended, setRecommended] = useState();
 
   // Essa condicional se aplica quando há apenas um item quando é feita a busca na Api, dessa forma ela deve ser redirecionada a página de detalhes do item em questão de forma imediata.
   const isOnlyOneItem = (response) => {
@@ -89,8 +90,10 @@ function Provider({ children }) {
   const providerState = {
     setToSearch,
     setIsFoodOrDrink,
+    setRecommended,
     linkToDetails,
     dataAPI,
+    recommended,
   };
 
   return (
