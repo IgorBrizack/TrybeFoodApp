@@ -5,17 +5,37 @@ import Header from '../components/Header';
 
 function Profile() {
   const history = useHistory();
-  const email = JSON.parse(localStorage.getItem('user'));
-  console.log(email.email);
+  const storage = JSON.parse(localStorage.getItem('user'));
   return (
     <>
       <Header page="Profile" history={ history } />
       <div>
         Profile
-        <p data-testid="profile-email">{ email.email }</p>
-        <button data-testid="profile-done-btn" type="button">Done Recipes</button>
-        <button data-testid="profile-favorite-btn" type="button">a</button>
-        <button data-testid="profile-logout-btn" type="button">a</button>
+        <p data-testid="profile-email">{ storage.email }</p>
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
+        <button
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
+        <button
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ () => {
+            localStorage.clear();
+            history.push('/');
+          } }
+        >
+          Logout
+        </button>
       </div>
       <Footer />
     </>
