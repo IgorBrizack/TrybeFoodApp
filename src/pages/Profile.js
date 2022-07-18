@@ -6,6 +6,7 @@ import Header from '../components/Header';
 function Profile() {
   const history = useHistory();
   const storage = JSON.parse(localStorage.getItem('user'));
+  // transformei em arrowf pra mockar o resultado no teste
   return (
     <>
       <Header page="Profile" history={ history } />
