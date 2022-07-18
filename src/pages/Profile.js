@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
+  // alterando para uso do estado
   const [storage, getStorage] = useState();
   const history = useHistory();
 
