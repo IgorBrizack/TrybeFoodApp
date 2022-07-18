@@ -5,13 +5,20 @@ import Header from '../components/Header';
 
 function Profile() {
   const history = useHistory();
-
+  const email = JSON.parse(localStorage.getItem('user'));
+  console.log(email.email);
   return (
-    <div>
+    <>
       <Header page="Profile" history={ history } />
-      <div>Profile</div>
+      <div>
+        Profile
+        <p data-testid="profile-email">{ email.email }</p>
+        <button data-testid="profile-done-btn" type="button">Done Recipes</button>
+        <button data-testid="profile-favorite-btn" type="button">a</button>
+        <button data-testid="profile-logout-btn" type="button">a</button>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
