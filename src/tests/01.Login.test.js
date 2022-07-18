@@ -47,6 +47,9 @@ describe('Testa a tela de login', () => {
     userEvent.type(inputEmail, 'teste@teste.com');
     userEvent.type(inputPassword, '1234567');
     userEvent.click(btnEnter);
-    waitFor(() => expect(history.location.pathname).toBe('/foods'));
+    expect(await screen.findByRole('heading', {  name: /corba/i},{timeout: 5000})).toBeInTheDocument() 
+    // await waitFor(() => expect(history.location.pathname).toBe('/foods'));
+
+    // screen.get)
   });
 });

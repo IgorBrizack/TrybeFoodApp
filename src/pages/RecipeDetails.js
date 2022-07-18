@@ -72,7 +72,8 @@ function RecipeDetails() {
 
   return (
     <div>
-      { isFoodOrDrinkDetails === 'foods' && (dataItem.map((value, index) => (
+      { (isFoodOrDrinkDetails === 'foods' && dataItem.length > 0)
+      && (dataItem.map((value, index) => (
         <div
           style={ {
             alignItems: 'center',
