@@ -2,7 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import App from '../App';
 import Provider from '../context/Provider';
 import Foods from '../pages/Foods';
 
