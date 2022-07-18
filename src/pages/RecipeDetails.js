@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 const MEALS_DETAILS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINKS_DETAILS_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const DRINKS_TO_RECOMMEND_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const MEALS_TO_RECOMMEND_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const QTD_INGREDIENTS = 20;
 const ZERO = 0;
 
@@ -11,6 +13,20 @@ function RecipeDetails() {
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
+  const [recommmended, setRecommended] = useState();
+
+  const recommendedItems = async (type) => {
+    let recommendation = '';
+    if (type === 'foods') {
+      recommendation = await fetch(MEALS_TO_RECOMMEND_ENDPOINT)
+        .then((response) => response.json());
+      setRecommended(recommendation.meals);
+    } else {
+      recommendation = await fetch(DRINKS_TO_RECOMMEND_ENDPOINT)
+        .then((response) => response.json());
+      setRecommended(recommendation.drinks);
+    }
+  };
 
   const fetchItemDetails = async () => {
     let resultsDetailAPI = '';
@@ -22,11 +38,13 @@ function RecipeDetails() {
         .replace(/\D/gim, '')}`).then((response) => response.json());
       setDataItem(resultsDetailAPI.meals);
       setIsFoodOrDrinkDetails('foods');
+      recommendedItems('drinks');
     } else {
       resultsDetailAPI = await fetch(`${DRINKS_DETAILS_ENDPOINT}${pathNameData
         .replace(/\D/gim, '')}`).then((response) => response.json());
       setDataItem(resultsDetailAPI.drinks);
       setIsFoodOrDrinkDetails('drinks');
+      recommendedItems('foods');
     }
   };
 
