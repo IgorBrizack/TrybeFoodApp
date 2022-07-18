@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import context from '../context/Context';
+import CarouselFadeExample from '../components/Carousel';
 
 const MEALS_DETAILS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINKS_DETAILS_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -9,11 +11,11 @@ const QTD_INGREDIENTS = 20;
 const ZERO = 0;
 
 function RecipeDetails() {
+  const { setRecommended } = useContext(context);
   const history = useHistory();
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
-  const [recommmended, setRecommended] = useState();
 
   const recommendedItems = async (type) => {
     let recommendation = '';
@@ -121,7 +123,14 @@ function RecipeDetails() {
             height="315"
             src={ value.strYoutube }
           />
-          <p data-testid={ `${index}-recomendation-card` }>recomendações</p>
+          <CarouselFadeExample />
+          <button
+            style={ { position: 'fixed', bottom: '0px' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
         </div>
       )))}
       { isFoodOrDrinkDetails === 'drinks' && (dataItem.map((value, index) => (
@@ -170,7 +179,14 @@ function RecipeDetails() {
           <p data-testid="instructions">
             {value.strInstructions}
           </p>
-          <p data-testid={ `${index}-recomendation-card` }>recomendações</p>
+          <CarouselFadeExample />
+          <button
+            style={ { position: 'fixed', bottom: '0px' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
         </div>
       )))}
     </div>
