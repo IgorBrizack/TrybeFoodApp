@@ -4,32 +4,40 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import Provider from '../context/Provider';
-import { act } from 'react-dom/test-utils';
+import fetch from './helpers/mocks/fetch';
 
 describe('Testa a tela de comidas', () => {
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  })
+
   it('Deve renderizar as 12 primeiras comidas ao entrar na rota de comidas', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url) )
     const history = createMemoryHistory();
-    await act( async () => render(
+     render(
       <Router history={ history }>
         <Provider>
           <Foods />
         </Provider>
       </Router>
-    ));
+    );
     for (let i = 0; i < 12; i ++) {
       const foodCard = await screen.findByTestId(`${i}-recipe-card`);
       expect(foodCard).toBeInTheDocument();
     }
   });
   it('Deve renderizar os componentes por categoria ao clicar na categoria específica', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url) )
     const history = createMemoryHistory();
-    await act( async () => render(
+    render(
       <Router history={ history }>
         <Provider>
           <Foods />
         </Provider>
       </Router>
-    ));
+    );
+
     const btnCategory = await screen.findByTestId('Beef-category-filter');
     const btnAll = await screen.findByTestId('All-category-filter');
     userEvent.click(btnCategory);
