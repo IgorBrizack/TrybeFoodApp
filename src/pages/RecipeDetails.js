@@ -129,6 +129,15 @@ function RecipeDetails() {
             style={ { position: 'fixed', bottom: '0px' } }
             type="button"
             data-testid="start-recipe-btn"
+            onClick={ () => history
+              .push({
+                pathname: `/foods/${dataItem[0].idMeal}/in-progress`,
+                search: '',
+                state: {
+                  dataItem,
+                  dataIngredients: ingredientData,
+                },
+              }) }
           >
             Start Recipe
           </button>
@@ -185,6 +194,15 @@ function RecipeDetails() {
             style={ { position: 'fixed', bottom: '0px' } }
             type="button"
             data-testid="start-recipe-btn"
+            onClick={ () => history
+              .push({
+                pathname: `/drinks/${dataItem[0].idDrink}/in-progress`,
+                search: '',
+                state: {
+                  dataItem,
+                  dataIngredients: ingredientData,
+                },
+              }) }
           >
             Start Recipe
           </button>
