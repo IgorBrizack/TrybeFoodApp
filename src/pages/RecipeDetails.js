@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import context from '../context/Context';
 import CarouselFadeExample from '../components/Carousel';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 const MEALS_DETAILS_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const DRINKS_DETAILS_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -16,6 +18,11 @@ function RecipeDetails() {
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
+  const [isInProgress, setIsInProgress] = useState();
+
+  useEffect(() => {
+    setIsInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
+  }, []);
 
   const recommendedItems = async (type) => {
     let recommendation = '';
@@ -72,8 +79,7 @@ function RecipeDetails() {
 
   return (
     <div>
-      { (isFoodOrDrinkDetails === 'foods' && dataItem.length > 0)
-      && (dataItem.map((value, index) => (
+      { isFoodOrDrinkDetails === 'foods' && (dataItem.map((value, index) => (
         <div
           style={ {
             alignItems: 'center',
@@ -85,6 +91,8 @@ function RecipeDetails() {
           } }
           key={ index }
         >
+          <ShareButton />
+          <FavoriteButton />
           <img
             style={ { width: '40%' } }
             src={ value.strMealThumb }
@@ -125,22 +133,32 @@ function RecipeDetails() {
             src={ value.strYoutube }
           />
           <CarouselFadeExample />
-          <button
-            style={ { position: 'fixed', bottom: '0px' } }
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history
-              .push({
-                pathname: `/foods/${dataItem[0].idMeal}/in-progress`,
-                search: '',
-                state: {
-                  dataItem,
-                  dataIngredients: ingredientData,
-                },
-              }) }
-          >
-            Start Recipe
-          </button>
+          {isInProgress ? (
+            <button
+              style={ { position: 'fixed', bottom: '0px' } }
+              type="button"
+              onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
+            >
+              Continue Recipe
+            </button>
+          ) : (
+            <button
+              style={ { position: 'fixed', bottom: '0px' } }
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history
+                .push({
+                  pathname: `/foods/${dataItem[0].idMeal}/in-progress`,
+                  search: '',
+                  state: {
+                    dataItem,
+                    dataIngredients: ingredientData,
+                  },
+                }) }
+            >
+              Start Recipe
+            </button>
+          )}
         </div>
       )))}
       { isFoodOrDrinkDetails === 'drinks' && (dataItem.map((value, index) => (
@@ -155,6 +173,8 @@ function RecipeDetails() {
           } }
           key={ index }
         >
+          <ShareButton />
+          <FavoriteButton />
           <img
             style={ { width: '40%' } }
             src={ value.strDrinkThumb }
@@ -190,22 +210,32 @@ function RecipeDetails() {
             {value.strInstructions}
           </p>
           <CarouselFadeExample />
-          <button
-            style={ { position: 'fixed', bottom: '0px' } }
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history
-              .push({
-                pathname: `/drinks/${dataItem[0].idDrink}/in-progress`,
-                search: '',
-                state: {
-                  dataItem,
-                  dataIngredients: ingredientData,
-                },
-              }) }
-          >
-            Start Recipe
-          </button>
+          {isInProgress ? (
+            <button
+              style={ { position: 'fixed', bottom: '0px' } }
+              type="button"
+              onClick={ `/drinks/${dataItem[0].idDrink}/in-progress` }
+            >
+              Continue Recipe
+            </button>
+          ) : (
+            <button
+              style={ { position: 'fixed', bottom: '0px' } }
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history
+                .push({
+                  pathname: `/drinks/${dataItem[0].idDrink}/in-progress`,
+                  search: '',
+                  state: {
+                    dataItem,
+                    dataIngredients: ingredientData,
+                  },
+                }) }
+            >
+              Start Recipe
+            </button>
+          )}
         </div>
       )))}
     </div>
