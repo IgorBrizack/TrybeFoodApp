@@ -7,6 +7,7 @@ const QTD_INGREDIENTS = 20;
 function RecipeInProgress({ match }) {
   const history = useHistory();
   const [item, setItem] = useState();
+  const [checked, setChecked] = useState([]);
   const [dataIngredients, setDataIngredients] = useState();
   async function getFood() {
     const fetchAPI = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`);
@@ -20,15 +21,34 @@ function RecipeInProgress({ match }) {
   }
   function organizeIngredientsData() {
     const ingredients = [];
+    const checks = [];
     for (let index = 1; index <= QTD_INGREDIENTS; index += 1) {
       if (item[`strIngredient${index}`]) {
         ingredients.push({
           ingredient: item[`strIngredient${index}`],
           measure: item[`strMeasure${index}`] });
+        checks.push(false);
       }
     }
     setDataIngredients(ingredients);
+    setChecked(checks);
   }
+  function checkStorageData() {
+    const storage = localStorage;
+    if (storage.getItem('inProgressRecipes') && item) {
+      const objStorage = JSON.parse(storage.getItem('inProgressRecipes'));
+      if (item.idMeal) {
+        if (Object.keys(objStorage.meals).includes(item.idMeal)) {
+          return setChecked(objStorage.meals[item.idMeal]);
+        }
+        return;
+      }
+      if (Object.keys(objStorage.cocktails).includes(item.idDrink)) {
+        return setChecked(objStorage.cocktails[item.idDrink]);
+      }
+    }
+  }
+
   useEffect(() => {
     if (match.path.includes('foods')) {
       return getFood();
@@ -38,8 +58,57 @@ function RecipeInProgress({ match }) {
   useEffect(() => {
     if (item) {
       organizeIngredientsData();
+      checkStorageData();
     }
   }, [item]);
+  function saveChecked(indexIng) {
+    const newChecked = checked.map((bool, index) => {
+      if (index === indexIng) {
+        return !bool;
+      }
+      return bool;
+    });
+    setChecked(newChecked);
+    const storage = localStorage;
+    if (!storage.getItem('inProgressRecipes')) {
+      if (item.idMeal) {
+        const objStorage = {
+          cocktails: {},
+          meals: {
+            [item.idMeal]: newChecked,
+          },
+        };
+        return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+      }
+      const objStorage = {
+        cocktails: {
+          [item.idDrink]: newChecked,
+        },
+        meals: {},
+      };
+      return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+    }
+    if (item.idMeal) {
+      const obj = JSON.parse(storage.getItem('inProgressRecipes'));
+      const newObj = {
+        ...obj,
+        meals: {
+          ...obj.meals,
+          [item.idMeal]: newChecked,
+        },
+      };
+      return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
+    }
+    const obj = JSON.parse(storage.getItem('inProgressRecipes'));
+    const newObj = {
+      ...obj,
+      cocktails: {
+        ...obj.cocktails,
+        [item.idDrink]: newChecked,
+      },
+    };
+    return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
+  }
   if (dataIngredients && item) {
     if (match.path.includes('foods')) {
       return (
@@ -74,10 +143,15 @@ function RecipeInProgress({ match }) {
                 <label
                   htmlFor={ `${valueIngredient.ingredient}-checkbox` }
                   data-testid={ `${indexIng}-ingredient-step` }
+                  style={ {
+                    textDecoration: checked[indexIng] ? 'line-through' : 'none',
+                  } }
                 >
                   <input
                     id={ `${valueIngredient.ingredient}-checkbox` }
                     type="checkbox"
+                    onChange={ () => saveChecked(indexIng) }
+                    checked={ checked[indexIng] }
                   />
                   {`${valueIngredient.ingredient} ${valueIngredient.measure}`}
                 </label>
@@ -90,7 +164,8 @@ function RecipeInProgress({ match }) {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="finish-recipe-btn"
-              onClick={ () => history.push(`/foods/${item.idMeal}`) }
+              onClick={ () => history.push('/done-recipes') }
+              disabled={ !checked.every((bool) => bool === true) }
             >
               Finish Recipe
             </button>
@@ -130,10 +205,15 @@ function RecipeInProgress({ match }) {
               <label
                 htmlFor={ `${ingredient}-checkbox` }
                 data-testid={ `${indexIng}-ingredient-step` }
+                style={ {
+                  textDecoration: checked[indexIng] ? 'line-through' : 'none',
+                } }
               >
                 <input
                   id={ `${ingredient}-checkbox` }
                   type="checkbox"
+                  onChange={ () => saveChecked(indexIng) }
+                  checked={ checked[indexIng] }
                 />
                 {`${ingredient} ${measure}`}
               </label>
@@ -146,7 +226,8 @@ function RecipeInProgress({ match }) {
             style={ { position: 'fixed', bottom: '0px' } }
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push(`/drinks/${item.idDrink}`) }
+            onClick={ () => history.push('/done-recipes') }
+            disabled={ !checked.every((bool) => bool === true) }
           >
             Finish Recipe
           </button>
