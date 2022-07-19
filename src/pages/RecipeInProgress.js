@@ -37,15 +37,10 @@ function RecipeInProgress({ match }) {
     const storage = localStorage;
     if (storage.getItem('inProgressRecipes') && item) {
       const objStorage = JSON.parse(storage.getItem('inProgressRecipes'));
-      if (item.idMeal) {
-        if (Object.keys(objStorage.meals).includes(item.idMeal)) {
-          return setChecked(objStorage.meals[item.idMeal]);
-        }
-        return;
+      if (item.idMeal && Object.keys(objStorage.meals).includes(item.idMeal)) {
+        return setChecked(objStorage.meals[item.idMeal]);
       }
-      if (Object.keys(objStorage.cocktails).includes(item.idDrink)) {
-        return setChecked(objStorage.cocktails[item.idDrink]);
-      }
+      return setChecked(objStorage.cocktails[item.idDrink]);
     }
   }
 

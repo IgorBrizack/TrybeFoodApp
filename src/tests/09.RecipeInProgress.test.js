@@ -47,6 +47,7 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
     expect(history.location.pathname).toBe('/done-recipes');
   });
   it('Testa a tela de progresso de receita de bebida', async () => {
+    localStorage.removeItem('inProgressRecipes');
     jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url) )
 
     const history = createMemoryHistory();
@@ -73,5 +74,85 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
     const finished = await screen.findByTestId('finish-recipe-btn');
     userEvent.click(finished);
     expect(history.location.pathname).toBe('/done-recipes');
+  });
+  it('Testa o localstorage com foods', async () => {
+    const localStorageMock = (() => {
+      let store = {};
+      return {
+      getItem(key) {
+      return store[key];
+      },
+      setItem(key, value) {
+      store[key] = value.toString();
+      },
+      clear() {
+      store = {};
+      },
+      removeItem(key) {
+      delete store[key];
+      }
+      };
+      })();
+      Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock
+    });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {},
+      meals: {
+        52771: [false, false, false, false, false, false, false, false],
+      },
+    }));
+    jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url));
+
+    const history = createMemoryHistory();
+    await act( async () => render(
+      <Router history={ history }>
+        <App />
+      </Router>
+    ));
+    history.push("/foods/52771/in-progress");
+    const checkbox = await screen.findByTestId('0-ingredient-step');
+    userEvent.click(checkbox);
+    history.push("/foods/52771/in-progress");
+  });
+  it('Testa o localstorage com drinks', async () => {
+    const localStorageMock = (() => {
+      let store = {};
+      return {
+      getItem(key) {
+      return store[key];
+      },
+      setItem(key, value) {
+      store[key] = value.toString();
+      },
+      clear() {
+      store = {};
+      },
+      removeItem(key) {
+      delete store[key];
+      }
+      };
+      })();
+      Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock
+    });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: {
+        15997: [false, false, false],
+      },
+      meals: {},
+    }));
+    jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url));
+
+    const history = createMemoryHistory();
+    await act( async () => render(
+      <Router history={ history }>
+        <App />
+      </Router>
+    ));
+    history.push("/drinks/15997/in-progress");
+    const checkbox = await screen.findByTestId('0-ingredient-step');
+    userEvent.click(checkbox);
+    history.push("/drinks/15997/in-progress");
   });
 })
