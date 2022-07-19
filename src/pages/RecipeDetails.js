@@ -92,7 +92,7 @@ function RecipeDetails() {
           key={ index }
         >
           <ShareButton />
-          <FavoriteButton />
+          <FavoriteButton dataItem={ dataItem } />
           <img
             style={ { width: '40%' } }
             src={ value.strMealThumb }

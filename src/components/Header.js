@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import SearchBar from './SearchBar';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function Header({ page }) {
   const history = useHistory();
@@ -18,10 +20,9 @@ function Header({ page }) {
         data-testid="profile-top-btn"
         type="button"
         onClick={ () => history.push('/profile') }
-        src="./images/profileIcon.svg"
       >
         <img
-          src="./images/profileIcon.svg"
+          src={ profileIcon }
           alt="profileIcon"
         />
       </button>
@@ -31,10 +32,9 @@ function Header({ page }) {
             type="button"
             data-testid="search-top-btn"
             onClick={ () => setIsSearching(!isSearching) }
-            src="./images/searchIcon.svg"
           >
             <img
-              src="./images/searchIcon.svg"
+              src={ searchIcon }
               alt="searchIcon"
             />
           </button>

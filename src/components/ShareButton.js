@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
-const copy = require('clipboard-copy');
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton() {
   const history = useHistory();
+  const [isCopied, setIsCopied] = useState(false);
 
   const copyFunction = () => {
-    global.alert('Link copied!');
-    copy(history.location.pathname);
+    copy(`http://localhost:3000${history.location.pathname}`);
+    setIsCopied(true);
   };
+
   return (
     <div>
       <button
@@ -17,10 +19,12 @@ function ShareButton() {
         type="button"
         onClick={ () => copyFunction() }
       >
-        <img
-          src="./images/shareIcon.svg"
-          alt="shareIcon"
-        />
+        {isCopied ? (<p>Link copied!</p>) : (
+          <img
+            src={ shareIcon }
+            alt="shareIcon"
+          />
+        )}
       </button>
     </div>
   );
