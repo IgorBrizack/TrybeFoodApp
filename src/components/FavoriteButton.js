@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const FAVORITE_ICONS = [whiteHeartIcon, blackHeartIcon];
-
 function FavoriteButton({ dataItem, type }) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [favoriteIcons, setFavoriteIcons] = useState();
   const [favoritesFromStorage, setFavoritesFromStorage] = useState('');
 
   const addAsFavorite = () => {
@@ -15,7 +12,7 @@ function FavoriteButton({ dataItem, type }) {
   };
 
   const saveOrRemoveFromFavoriteList = (action) => {
-    if (action === 'adicionar') {
+    if (action) {
       switch (type) {
       case 'Foods':
         localStorage.setItem('favoriteRecipes', JSON
@@ -41,45 +38,57 @@ function FavoriteButton({ dataItem, type }) {
             image: dataItem[0].strDrinkThumb,
           }]));
       }
-    } else {
-      // const itemsFromLocalStorage = JSON.parse(localStorage.getItem('favoriRecipes'));
-      // switch(type) {
-      //   case
-      // }
-      // let removeItem = itemsFromLocalStorage.filter((item) => )
+    } else if (!action) {
+      const itemsFromLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      let removeItem = '';
+      switch (type) {
+      case 'Foods':
+        if (itemsFromLocalStorage) {
+          removeItem = itemsFromLocalStorage
+            .filter((item) => item.id !== dataItem[0].idMeal);
+          localStorage.setItem('favoriteRecipes', removeItem);
+        }
+        break;
+      default:
+        if (itemsFromLocalStorage) {
+          removeItem = itemsFromLocalStorage
+            .filter((item) => item.id !== dataItem[0].idDrink);
+          localStorage.setItem('favoriteRecipes', removeItem);
+        }
+      }
     }
   };
 
   useEffect(() => {
+    const auxiliar = type === 'Foods' ? 'idMeal' : 'idDrink';
     if (localStorage.getItem('favoriteRecipes')) {
-      setFavoritesFromStorage(JSON.parse(localStorage.getItem('favoriteRecipes')));
+      const dataStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setFavoritesFromStorage(dataStorage);
+      if (dataStorage.some((item) => item.id === dataItem[0][auxiliar])) {
+        console.log('entrando aqui');
+        addAsFavorite();
+      }
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
       setFavoritesFromStorage(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
   }, []);
 
-  useEffect(() => {
-    if (isFavorite) {
-      setFavoriteIcons(FAVORITE_ICONS[1]);
-      saveOrRemoveFromFavoriteList('adicionar');
-    }
-    if (!isFavorite) {
-      setFavoriteIcons(FAVORITE_ICONS[0]);
-      saveOrRemoveFromFavoriteList('remover');
-    }
-  },
-  [isFavorite]);
+  const handleClick = () => {
+    addAsFavorite();
+    saveOrRemoveFromFavoriteList(!isFavorite);
+  };
 
   return (
     <div>
       <button
         data-testid="favorite-btn"
         type="button"
-        onClick={ () => addAsFavorite() }
+        onClick={ handleClick }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       >
         <img
-          src={ favoriteIcons }
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favoriteIcon"
         />
       </button>
