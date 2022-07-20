@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 const QTD_INGREDIENTS = 20;
 
@@ -129,8 +131,8 @@ function RecipeInProgress({ match }) {
             data-testid="recipe-photo"
           />
           <h1 data-testid="recipe-title">{item.strMeal}</h1>
-          <button type="button" data-testid="share-btn">Compartilhar</button>
-          <button type="button" data-testid="favorite-btn">Favoritar</button>
+          <ShareButton />
+          <FavoriteButton dataItem={ [item] } type="Foods" />
           <p data-testid="recipe-category">{item.strCategory}</p>
           <div>
             {dataIngredients.map((valueIngredient, indexIng) => (
@@ -191,8 +193,8 @@ function RecipeInProgress({ match }) {
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">{item.strDrink}</h1>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <ShareButton />
+        <FavoriteButton dataItem={ [item] } type="Drinks" />
         <p data-testid="recipe-category">{item.strAlcoholic}</p>
         <div>
           {dataIngredients.map(({ ingredient, measure }, indexIng) => (

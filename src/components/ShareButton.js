@@ -8,8 +8,14 @@ function ShareButton() {
   const [isCopied, setIsCopied] = useState(false);
 
   const copyFunction = () => {
-    copy(`http://localhost:3000${history.location.pathname}`);
-    setIsCopied(true);
+    if (history.location.pathname.includes('/in-progress')) {
+      const str = history.location.pathname.replace('/in-progress', '');
+      copy(`http://localhost:3000${str}`);
+      setIsCopied(true);
+    } else {
+      copy(`http://localhost:3000${history.location.pathname}`);
+      setIsCopied(true);
+    }
   };
 
   return (
