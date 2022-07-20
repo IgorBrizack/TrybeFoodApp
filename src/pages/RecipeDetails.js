@@ -22,14 +22,13 @@ function RecipeDetails() {
   useEffect(() => {
     if (localStorage.getItem('inProgressRecipes')) {
       const storageItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (dataItem[0].idMeal) {
-        console.log('chegando aqui');
-        return setIsInProgress(Object.keys(storageItems.meals)
+      if (history.location.pathname.includes('foods') && dataItem[0]) {
+        setIsInProgress(Object.keys(storageItems.meals)
           .includes(dataItem[0].idMeal));
+      } if (history.location.pathname.includes('drinks') && dataItem[0]) {
+        setIsInProgress(Object.keys(storageItems.cocktails)
+          .includes(dataItem[0].idDrink));
       }
-      console.log('chegando aqui2');
-      return setIsInProgress(Object.keys(storageItems.cocktails)
-        .includes(dataItem[0].idDrink));
     }
   }, [dataItem]);
   const recommendedItems = async (type) => {
@@ -140,6 +139,7 @@ function RecipeDetails() {
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
+              data-testid="start-recipe-btn"
               onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Continue Recipe
@@ -149,15 +149,7 @@ function RecipeDetails() {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
-              onClick={ () => history
-                .push({
-                  pathname: `/foods/${dataItem[0].idMeal}/in-progress`,
-                  search: '',
-                  state: {
-                    dataItem,
-                    dataIngredients: ingredientData,
-                  },
-                }) }
+              onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Start Recipe
             </button>
@@ -217,7 +209,8 @@ function RecipeDetails() {
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
-              onClick={ `/drinks/${dataItem[0].idDrink}/in-progress` }
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
             >
               Continue Recipe
             </button>
@@ -226,15 +219,7 @@ function RecipeDetails() {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
-              onClick={ () => history
-                .push({
-                  pathname: `/drinks/${dataItem[0].idDrink}/in-progress`,
-                  search: '',
-                  state: {
-                    dataItem,
-                    dataIngredients: ingredientData,
-                  },
-                }) }
+              onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
             >
               Start Recipe
             </button>

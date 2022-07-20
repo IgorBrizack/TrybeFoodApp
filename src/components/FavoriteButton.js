@@ -42,8 +42,11 @@ function FavoriteButton({ dataItem, type }) {
           }]));
       }
     } else {
-      const itemsFromLocalStorage = JSON.parse(localStorage.getItem('favoriRecipes'));
-      let removeItem = itemsFromLocalStorage.filter((item) => )
+      // const itemsFromLocalStorage = JSON.parse(localStorage.getItem('favoriRecipes'));
+      // switch(type) {
+      //   case
+      // }
+      // let removeItem = itemsFromLocalStorage.filter((item) => )
     }
   };
 
