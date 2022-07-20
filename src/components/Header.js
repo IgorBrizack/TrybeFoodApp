@@ -19,6 +19,7 @@ function Header({ page }) {
       <button
         data-testid="profile-top-btn"
         type="button"
+        src={ profileIcon }
         onClick={ () => history.push('/profile') }
       >
         <img
@@ -31,6 +32,7 @@ function Header({ page }) {
           <button
             type="button"
             data-testid="search-top-btn"
+            src={ searchIcon }
             onClick={ () => setIsSearching(!isSearching) }
           >
             <img

@@ -12,6 +12,7 @@ function Footer() {
         data-testid="drinks-bottom-btn"
         type="button"
         onClick={ () => history.push('/drinks') }
+        src={ drinkIcon }
       >
         <img
           src={ drinkIcon }

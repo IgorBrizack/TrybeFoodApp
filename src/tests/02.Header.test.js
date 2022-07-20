@@ -26,11 +26,10 @@ describe('Teste o Componente Header', () => {
     userEvent.click(searchButton)
 
     const profileButton = screen.getByRole('img', {  name: /profileicon/i})
-    expect(profileButton).toHaveAttribute('src', './images/profileIcon.svg')
+    expect(profileButton).toHaveAttribute('src', 'profileIcon.svg')
     expect(profileButton).toBeInTheDocument()
     userEvent.click(profileButton)
     waitFor(() => expect(history.location.pathname).toBe('/profile'))
-    
     
   })
 })
