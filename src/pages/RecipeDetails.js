@@ -18,12 +18,19 @@ function RecipeDetails() {
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
-  const [isInProgress, setIsInProgress] = useState();
-
+  const [isInProgress, setIsInProgress] = useState(false);
   useEffect(() => {
-    setIsInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
-  }, []);
-
+    if (localStorage.getItem('inProgressRecipes')) {
+      const storageItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (history.location.pathname.includes('foods') && dataItem[0]) {
+        setIsInProgress(Object.keys(storageItems.meals)
+          .includes(dataItem[0].idMeal));
+      } if (history.location.pathname.includes('drinks') && dataItem[0]) {
+        setIsInProgress(Object.keys(storageItems.cocktails)
+          .includes(dataItem[0].idDrink));
+      }
+    }
+  }, [dataItem]);
   const recommendedItems = async (type) => {
     let recommendation = '';
     if (type === 'foods') {
@@ -36,7 +43,6 @@ function RecipeDetails() {
       setRecommended(recommendation.drinks);
     }
   };
-
   const fetchItemDetails = async () => {
     let resultsDetailAPI = '';
     const pathNameData = history.location.pathname;
@@ -56,7 +62,6 @@ function RecipeDetails() {
       recommendedItems('foods');
     }
   };
-
   const organizeIngredientsData = () => {
     const ingredients = [];
     for (let index = 1; index <= QTD_INGREDIENTS; index += 1) {
@@ -68,15 +73,12 @@ function RecipeDetails() {
     }
     setIngredientData(ingredients);
   };
-
   useEffect(() => {
     if (dataItem.length > 0) organizeIngredientsData();
   }, [dataItem]);
-
   useEffect(() => (
     fetchItemDetails()
   ), []);
-
   return (
     <div>
       { isFoodOrDrinkDetails === 'foods' && (dataItem.map((value, index) => (
@@ -92,7 +94,7 @@ function RecipeDetails() {
           key={ index }
         >
           <ShareButton />
-          <FavoriteButton dataItem={ dataItem } />
+          <FavoriteButton dataItem={ dataItem } type="Foods" />
           <img
             style={ { width: '40%' } }
             src={ value.strMealThumb }
@@ -137,6 +139,7 @@ function RecipeDetails() {
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
+              data-testid="start-recipe-btn"
               onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Continue Recipe
@@ -146,15 +149,7 @@ function RecipeDetails() {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
-              onClick={ () => history
-                .push({
-                  pathname: `/foods/${dataItem[0].idMeal}/in-progress`,
-                  search: '',
-                  state: {
-                    dataItem,
-                    dataIngredients: ingredientData,
-                  },
-                }) }
+              onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Start Recipe
             </button>
@@ -174,7 +169,7 @@ function RecipeDetails() {
           key={ index }
         >
           <ShareButton />
-          <FavoriteButton />
+          <FavoriteButton dataItem={ dataItem } type="Drinks" />
           <img
             style={ { width: '40%' } }
             src={ value.strDrinkThumb }
@@ -214,7 +209,8 @@ function RecipeDetails() {
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
-              onClick={ `/drinks/${dataItem[0].idDrink}/in-progress` }
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
             >
               Continue Recipe
             </button>
@@ -223,15 +219,7 @@ function RecipeDetails() {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
-              onClick={ () => history
-                .push({
-                  pathname: `/drinks/${dataItem[0].idDrink}/in-progress`,
-                  search: '',
-                  state: {
-                    dataItem,
-                    dataIngredients: ingredientData,
-                  },
-                }) }
+              onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
             >
               Start Recipe
             </button>
