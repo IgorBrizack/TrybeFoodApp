@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import { setRecipesMeal, setRecipesDrink, getDate } from '../helpers/setDoneRecipes';
 
 const QTD_INGREDIENTS = 20;
 
@@ -111,6 +112,15 @@ function RecipeInProgress({ match }) {
     };
     return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
   }
+  function handleDoneRecipes(type) {
+    const date = new Date().toLocaleDateString();
+    if (type === 'Foods') {
+      setRecipesMeal(item, getDate(date));
+      return history.push('/done-recipes');
+    }
+    setRecipesDrink(item, getDate(date));
+    history.push('/done-recipes');
+  }
   if (dataIngredients && item) {
     if (match.path.includes('foods')) {
       return (
@@ -166,7 +176,7 @@ function RecipeInProgress({ match }) {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="finish-recipe-btn"
-              onClick={ () => history.push('/done-recipes') }
+              onClick={ () => handleDoneRecipes('Foods') }
               disabled={ !checked.every((bool) => bool === true) }
             >
               Finish Recipe
@@ -228,7 +238,7 @@ function RecipeInProgress({ match }) {
             style={ { position: 'fixed', bottom: '0px' } }
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/done-recipes') }
+            onClick={ () => handleDoneRecipes('Drinks') }
             disabled={ !checked.every((bool) => bool === true) }
           >
             Finish Recipe
