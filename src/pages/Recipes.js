@@ -9,10 +9,12 @@ function Recipes() {
     return (
       <Foods />
     );
+  } if (history.location.pathname === '/drinks') {
+    return (
+      <Drinks />
+    );
   }
-  return (
-    <Drinks />
-  );
+  return null;
 }
 
 export default Recipes;

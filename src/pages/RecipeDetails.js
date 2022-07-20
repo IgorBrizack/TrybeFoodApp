@@ -18,12 +18,20 @@ function RecipeDetails() {
   const [dataItem, setDataItem] = useState([]);
   const [isFoodOrDrinkDetails, setIsFoodOrDrinkDetails] = useState('');
   const [ingredientData, setIngredientData] = useState();
-  const [isInProgress, setIsInProgress] = useState();
-
+  const [isInProgress, setIsInProgress] = useState(false);
   useEffect(() => {
-    setIsInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
-  }, []);
-
+    if (localStorage.getItem('inProgressRecipes')) {
+      const storageItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (dataItem[0].idMeal) {
+        console.log('chegando aqui');
+        return setIsInProgress(Object.keys(storageItems.meals)
+          .includes(dataItem[0].idMeal));
+      }
+      console.log('chegando aqui2');
+      return setIsInProgress(Object.keys(storageItems.cocktails)
+        .includes(dataItem[0].idDrink));
+    }
+  }, [dataItem]);
   const recommendedItems = async (type) => {
     let recommendation = '';
     if (type === 'foods') {
@@ -36,7 +44,6 @@ function RecipeDetails() {
       setRecommended(recommendation.drinks);
     }
   };
-
   const fetchItemDetails = async () => {
     let resultsDetailAPI = '';
     const pathNameData = history.location.pathname;
@@ -56,7 +63,6 @@ function RecipeDetails() {
       recommendedItems('foods');
     }
   };
-
   const organizeIngredientsData = () => {
     const ingredients = [];
     for (let index = 1; index <= QTD_INGREDIENTS; index += 1) {
@@ -68,15 +74,12 @@ function RecipeDetails() {
     }
     setIngredientData(ingredients);
   };
-
   useEffect(() => {
     if (dataItem.length > 0) organizeIngredientsData();
   }, [dataItem]);
-
   useEffect(() => (
     fetchItemDetails()
   ), []);
-
   return (
     <div>
       { isFoodOrDrinkDetails === 'foods' && (dataItem.map((value, index) => (
@@ -92,7 +95,7 @@ function RecipeDetails() {
           key={ index }
         >
           <ShareButton />
-          <FavoriteButton dataItem={ dataItem } />
+          <FavoriteButton dataItem={ dataItem } type="Foods" />
           <img
             style={ { width: '40%' } }
             src={ value.strMealThumb }
@@ -174,7 +177,7 @@ function RecipeDetails() {
           key={ index }
         >
           <ShareButton />
-          <FavoriteButton />
+          <FavoriteButton dataItem={ dataItem } type="Drinks" />
           <img
             style={ { width: '40%' } }
             src={ value.strDrinkThumb }
