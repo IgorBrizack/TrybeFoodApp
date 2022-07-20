@@ -19,6 +19,39 @@ function RecipeInProgress({ match }) {
     const data = await fetchAPI.json();
     setItem(data.drinks[0]);
   }
+  function setInittialStorage(checks) {
+    const storage = localStorage;
+    if (!storage.getItem('inProgressRecipes')) {
+      if (item.idMeal) {
+        const objStorage = { cocktails: {}, meals: { [item.idMeal]: checks } };
+        return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+      }
+      const objStorage = {
+        cocktails: { [item.idDrink]: checks },
+        meals: {},
+      };
+      return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+    }
+    const objStorageIn = JSON.parse(storage.getItem('inProgressRecipes'));
+    if (item.idMeal) {
+      if (!Object.keys(JSON
+        .parse(storage.getItem('inProgressRecipes')).meals).includes(item.idMeal)) {
+        const objStorage = { cocktails: { ...objStorageIn.cocktails },
+          meals: { ...objStorageIn.meals, [item.idMeal]: checks },
+        };
+        return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+      }
+      return null;
+    }
+    if (!Object.keys(JSON
+      .parse(storage.getItem('inProgressRecipes')).cocktails).includes(item.idDrink)) {
+      const objStorage = {
+        cocktails: { ...objStorageIn.cocktails, [item.idDrink]: checks },
+        meals: { ...objStorageIn.meals },
+      };
+      return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
+    }
+  }
   function organizeIngredientsData() {
     const ingredients = [];
     const checks = [];
@@ -32,6 +65,7 @@ function RecipeInProgress({ match }) {
     }
     setDataIngredients(ingredients);
     setChecked(checks);
+    setInittialStorage(checks);
   }
   function checkStorageData() {
     const storage = localStorage;
@@ -43,7 +77,6 @@ function RecipeInProgress({ match }) {
       return setChecked(objStorage.cocktails[item.idDrink]);
     }
   }
-
   useEffect(() => {
     if (match.path.includes('foods')) {
       return getFood();
@@ -65,42 +98,14 @@ function RecipeInProgress({ match }) {
     });
     setChecked(newChecked);
     const storage = localStorage;
-    if (!storage.getItem('inProgressRecipes')) {
-      if (item.idMeal) {
-        const objStorage = {
-          cocktails: {},
-          meals: {
-            [item.idMeal]: newChecked,
-          },
-        };
-        return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
-      }
-      const objStorage = {
-        cocktails: {
-          [item.idDrink]: newChecked,
-        },
-        meals: {},
-      };
-      return storage.setItem('inProgressRecipes', JSON.stringify(objStorage));
-    }
     if (item.idMeal) {
       const obj = JSON.parse(storage.getItem('inProgressRecipes'));
-      const newObj = {
-        ...obj,
-        meals: {
-          ...obj.meals,
-          [item.idMeal]: newChecked,
-        },
-      };
+      const newObj = { ...obj, meals: { ...obj.meals, [item.idMeal]: newChecked } };
       return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
     }
     const obj = JSON.parse(storage.getItem('inProgressRecipes'));
-    const newObj = {
-      ...obj,
-      cocktails: {
-        ...obj.cocktails,
-        [item.idDrink]: newChecked,
-      },
+    const newObj = { ...obj,
+      cocktails: { ...obj.cocktails, [item.idDrink]: newChecked },
     };
     return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
   }
@@ -232,7 +237,6 @@ function RecipeInProgress({ match }) {
   }
   return null;
 }
-
 RecipeInProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.objectOf(
@@ -241,5 +245,4 @@ RecipeInProgress.propTypes = {
     path: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 export default RecipeInProgress;
