@@ -65,7 +65,6 @@ function FavoriteButton({ dataItem, type }) {
       const dataStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
       setFavoritesFromStorage(dataStorage);
       if (dataStorage.some((item) => item.id === dataItem[0][auxiliar])) {
-        console.log('entrando aqui');
         addAsFavorite();
       }
     } else {

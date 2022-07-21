@@ -45,6 +45,8 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
         <App />
       </Router>
     );
+    
+    history.push("/foods/");
 
     history.push("/foods/52771")
 

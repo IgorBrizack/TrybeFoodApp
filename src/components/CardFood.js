@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 
 function CardFood({ meal, page, index }) {
-  console.log(meal);
   if (page === 'foods') {
     return (
       <div
@@ -47,24 +46,28 @@ function CardFood({ meal, page, index }) {
         width: '70%',
       } }
     >
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        src={ meal.image }
-        alt="mealCardImg"
-        style={ { width: '100%' } }
-      />
+      <Link to={ `foods/${meal.id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ meal.image }
+          alt="mealCardImg"
+          style={ { width: '100%' } }
+        />
+      </Link>
       <h3
         data-testid={ `${index}-horizontal-top-text` }
         style={ { fontSize: '18px' } }
       >
         { `${meal.nationality} - ${meal.category}` }
       </h3>
-      <h3
-        data-testid={ `${index}-horizontal-name` }
-        style={ { textAlign: 'center', fontSize: '18px' } }
-      >
-        { meal.name }
-      </h3>
+      <Link to={ `foods/${meal.id}` }>
+        <h3
+          data-testid={ `${index}-horizontal-name` }
+          style={ { textAlign: 'center', fontSize: '18px' } }
+        >
+          { meal.name }
+        </h3>
+      </Link>
       <h3
         data-testid={ `${index}-horizontal-done-date` }
         style={ { fontSize: '18px' } }

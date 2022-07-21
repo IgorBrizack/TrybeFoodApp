@@ -9,10 +9,9 @@ function SearchBar() {
 
   const execSearch = () => {
     if (typeOfSearch === 'firstLetter' && searching.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
-    } else if (searching && typeOfSearch) {
-      setToSearch({ search: searching, type: typeOfSearch });
+      return global.alert('Your search must have only 1 (one) character');
     }
+    setToSearch({ search: searching, type: typeOfSearch });
   };
 
   const handleChange = ({ target }) => {
