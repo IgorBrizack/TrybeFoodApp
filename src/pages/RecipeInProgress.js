@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
-import { setRecipesMeal, setRecipesDrink, getDate } from '../helpers/setDoneRecipes';
+import { setRecipesMeal, setRecipesDrink } from '../helpers/setDoneRecipes';
 
 const QTD_INGREDIENTS = 20;
 
@@ -115,10 +115,10 @@ function RecipeInProgress({ match }) {
   function handleDoneRecipes(type) {
     const date = new Date().toLocaleDateString();
     if (type === 'Foods') {
-      setRecipesMeal(item, getDate(date));
+      setRecipesMeal(item, date);
       return history.push('/done-recipes');
     }
-    setRecipesDrink(item, getDate(date));
+    setRecipesDrink(item, date);
     history.push('/done-recipes');
   }
   if (dataIngredients && item) {

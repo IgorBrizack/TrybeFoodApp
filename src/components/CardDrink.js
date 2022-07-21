@@ -41,8 +41,9 @@ function CardDrink({ drink, page, index }) {
         border: '1px solid black',
         display: 'flex',
         flexDirection: 'column',
+        margin: 'auto',
         padding: '20px',
-        width: '20%',
+        width: '70%',
       } }
     >
       <img
@@ -53,36 +54,39 @@ function CardDrink({ drink, page, index }) {
       />
       <h3
         data-testid={ `${index}-horizontal-top-text` }
+        style={ { fontSize: '18px' } }
       >
-        { drink.category }
+        { `${drink.alcoholicOrNot} - ${drink.category}` }
       </h3>
       <h3
-        data-testid={ `${index}-horizontal-name"` }
-        style={ { textAlign: 'center' } }
+        data-testid={ `${index}-horizontal-name` }
+        style={ { textAlign: 'center', fontSize: '18px' } }
       >
         { drink.name }
       </h3>
       <h3
-        data-testid={ `${index}-horizontal-done-date"` }
+        data-testid={ `${index}-horizontal-done-date` }
+        style={ { fontSize: '18px' } }
       >
         { drink.doneDate }
       </h3>
-      <div
-        data-testid={ `${index}-horizontal-share-btn` }
-      >
-        <ShareButton />
-      </div>
       { drink.tags
         && (
           drink.tags.map((tag) => (
             <h3
               key={ tag }
               data-testid={ `${index}-${tag}-horizontal-tag` }
+              style={ { fontSize: '18px' } }
             >
               { tag }
             </h3>
           ))
         ) }
+      <div
+        data-testid={ `${index}-horizontal-share-btn` }
+      >
+        <ShareButton id={ drink.id } type="drinks" />
+      </div>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 function factorTags(tags) {
+  if (!tags) {
+    return [];
+  }
   if (tags.includes(', ')) {
     return tags.split(', ');
-  } if (!tags.includes(', ') && tags) {
+  } if (!tags.includes(', ')) {
     return [tags];
   }
-  return [];
 }
 
 function checkIfAlcoholic(str) {
@@ -16,9 +18,9 @@ function checkIfAlcoholic(str) {
   return 'Optional alcohol';
 }
 
-export function getDate(date) {
+function getDate(date) {
   const d = date.split('/');
-  const dat = new Date(`${d[2]}/${d[1]}/${d[0]}`);
+  const dat = `${d[1]}/${d[0]}/${d[2]}`;
   return dat;
 }
 
@@ -33,7 +35,7 @@ export function setRecipesMeal(item, date) {
       alcoholicOrNot: '',
       name: item.strMeal,
       image: item.strMealThumb,
-      doneDate: date,
+      doneDate: getDate(date),
       tags: factorTags(item.strTags),
     };
     return storage.setItem('doneRecipes', JSON.stringify([objStorage]));
@@ -48,7 +50,7 @@ export function setRecipesMeal(item, date) {
       alcoholicOrNot: '',
       name: item.strMeal,
       image: item.strMealThumb,
-      doneDate: date,
+      doneDate: getDate(date),
       tags: factorTags(item.strTags),
     }];
     return storage.setItem('doneRecipes', JSON.stringify(arrStorage));
@@ -66,7 +68,7 @@ export function setRecipesDrink(item, date) {
       alcoholicOrNot: checkIfAlcoholic(item.strAlcoholic),
       name: item.strDrink,
       image: item.strDrinkThumb,
-      doneDate: date,
+      doneDate: getDate(date),
       tags: factorTags(item.strTags),
     };
     return storage.setItem('doneRecipes', JSON.stringify([objStorage]));
@@ -81,7 +83,7 @@ export function setRecipesDrink(item, date) {
       alcoholicOrNot: checkIfAlcoholic(item.strAlcoholic),
       name: item.strDrink,
       image: item.strDrinkThumb,
-      doneDate: date,
+      doneDate: getDate(date),
       tags: factorTags(item.strTags),
     }];
     return storage.setItem('doneRecipes', JSON.stringify(arrStorage));

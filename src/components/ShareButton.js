@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareButton() {
+function ShareButton({ id, type }) {
   const history = useHistory();
   const [isCopied, setIsCopied] = useState(false);
 
   const copyFunction = () => {
+    if (id) {
+      const str = `http://localhost:3000/${type}/${id}`;
+      copy(str);
+      return setIsCopied(true);
+    }
     if (history.location.pathname.includes('/in-progress')) {
       const str = history.location.pathname.replace('/in-progress', '');
       copy(`http://localhost:3000${str}`);
@@ -35,5 +41,15 @@ function ShareButton() {
     </div>
   );
 }
+
+ShareButton.propTypes = {
+  id: PropTypes.string,
+  type: PropTypes.string,
+};
+
+ShareButton.defaultProps = {
+  id: '',
+  type: '',
+};
 
 export default ShareButton;
