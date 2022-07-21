@@ -49,6 +49,7 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
     // expect(await screen.findByRole('heading', {  name: /corba/i},{timeout: 5000})).toBeInTheDocument()
     // const corbaBTN =  screen.getByRole('heading', {  name: /corba/i})
     // userEvent.click(corbaBTN);
+    //teste 36
 
     expect(await screen.findByTestId("instructions",{timeout: 5000})).toBeInTheDocument()
     expect(global.fetch).toHaveBeenCalled()
