@@ -31,9 +31,11 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
       value: localStorageMock
     });
     localStorage.setItem('inProgressRecipes', JSON.stringify({
-      cocktails: {},
+      cocktails: {
+        15997: [false, false, false],
+      },
       meals: {
-        52977: [false, false, false, false, false, false, false, false, false, false, false, false, false],
+        52771: [false, false, false, false, false, false, false, false, false, false, false, false, false],
       },
     }));
 
@@ -44,11 +46,7 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
       </Router>
     );
 
-    history.push("/foods/52977")
-
-    // expect(await screen.findByRole('heading', {  name: /corba/i},{timeout: 5000})).toBeInTheDocument()
-    // const corbaBTN =  screen.getByRole('heading', {  name: /corba/i})
-    // userEvent.click(corbaBTN);
+    history.push("/foods/52771")
 
     expect(await screen.findByTestId("instructions",{timeout: 5000})).toBeInTheDocument()
     expect(global.fetch).toHaveBeenCalled()
@@ -61,8 +59,9 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
     const shareButton = screen.getByRole('img', {  name: /shareicon/i});
     expect(shareButton).toBeInTheDocument();
     
-    // NÃO ENCONTRO O CONTINUE RECIPE
-    expect(await screen.findByRole('button', {  name: /continue recipe/i}, {timeout: 5000})).toBeInTheDocument()
+    const expectButton = await screen.findByRole('button', {  name: /continue recipe/i})
+    expect(expectButton).toBeInTheDocument()
+    userEvent.click(expectButton);
 
     history.push("/drinks")
 
@@ -80,6 +79,10 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
 
     const shareButtonDrinks = screen.getByRole('img', {  name: /shareicon/i});
     expect(shareButtonDrinks).toBeInTheDocument();
+
+    const expectButton2 = await screen.findByRole('button', {  name: /continue recipe/i})
+    expect(expectButton2).toBeInTheDocument()
+    userEvent.click(expectButton2);
     
   })
 })
