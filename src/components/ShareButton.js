@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton({ id, type }) {
+  console.log(type);
   const history = useHistory();
   const [isCopied, setIsCopied] = useState(false);
 
   const copyFunction = () => {
-    if (id) {
+    if (id && type) {
       const str = `http://localhost:3000/${type}/${id}`;
       copy(str);
       return setIsCopied(true);
