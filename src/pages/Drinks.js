@@ -99,9 +99,9 @@ function Drinks() {
             categoryFilter
               .filter((category, index) => index < NUMBER_INDEX_CATEGORY
                 || category.strCategory === 'All')
-              .map(({ strCategory }) => (
+              .map(({ strCategory }, index) => (
                 <li
-                  key={ strCategory }
+                  key={ index }
                   style={ {
                     border: '1px solid black',
                     textAlign: 'center',

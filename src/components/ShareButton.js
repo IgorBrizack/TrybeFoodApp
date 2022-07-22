@@ -26,7 +26,9 @@ function ShareButton({ id, type }) {
   };
 
   return (
-    <div>
+    <div
+      src={ shareIcon }
+    >
       <button
         data-testid="share-btn"
         type="button"

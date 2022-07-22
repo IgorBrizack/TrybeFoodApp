@@ -29,7 +29,7 @@ export function setRecipesMeal(item, date) {
   if (!storage.getItem('doneRecipes')) {
     const objStorage = {
       id: item.idMeal,
-      type: 'Foods',
+      type: 'food',
       nationality: item.strArea,
       category: item.strCategory,
       alcoholicOrNot: '',
@@ -44,7 +44,7 @@ export function setRecipesMeal(item, date) {
     const objStorageIn = JSON.parse(storage.getItem('doneRecipes'));
     const arrStorage = [...objStorageIn, {
       id: item.idMeal,
-      type: 'Foods',
+      type: 'food',
       nationality: item.strArea,
       category: item.strCategory,
       alcoholicOrNot: '',
@@ -62,7 +62,7 @@ export function setRecipesDrink(item, date) {
   if (!storage.getItem('doneRecipes')) {
     const objStorage = {
       id: item.idDrink,
-      type: 'Drinks',
+      type: 'drink',
       nationality: '',
       category: item.strCategory,
       alcoholicOrNot: checkIfAlcoholic(item.strAlcoholic),
@@ -77,7 +77,7 @@ export function setRecipesDrink(item, date) {
     const objStorageIn = JSON.parse(storage.getItem('doneRecipes'));
     const arrStorage = [...objStorageIn, {
       id: item.idDrink,
-      type: 'Drinks',
+      type: 'drink',
       nationality: '',
       category: item.strCategory,
       alcoholicOrNot: checkIfAlcoholic(item.strAlcoholic),
