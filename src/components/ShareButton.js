@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton({ id, type }) {
+  console.log(type);
   const history = useHistory();
   const [isCopied, setIsCopied] = useState(false);
 
