@@ -53,36 +53,34 @@ function CardFood({ meal, page, index }) {
           alt="mealCardImg"
           style={ { width: '100%' } }
         />
-      </Link>
-      <h3
-        data-testid={ `${index}-horizontal-top-text` }
-        style={ { fontSize: '18px' } }
-      >
-        { `${meal.nationality} - ${meal.category}` }
-      </h3>
-      <Link to={ `foods/${meal.id}` }>
-        <h3
+        <p
           data-testid={ `${index}-horizontal-name` }
           style={ { textAlign: 'center', fontSize: '18px' } }
         >
           { meal.name }
-        </h3>
+        </p>
       </Link>
-      <h3
+      <p
+        data-testid={ `${index}-horizontal-top-text` }
+        style={ { fontSize: '18px' } }
+      >
+        { `${meal.nationality} - ${meal.category}` }
+      </p>
+      <p
         data-testid={ `${index}-horizontal-done-date` }
         style={ { fontSize: '18px' } }
       >
         { meal.doneDate }
-      </h3>
+      </p>
       {
         meal.tags.map((tag) => (
-          <h3
+          <p
             key={ tag }
             data-testid={ `${index}-${tag}-horizontal-tag` }
             style={ { fontSize: '18px' } }
           >
             { tag }
-          </h3>
+          </p>
         ))
       }
       <div

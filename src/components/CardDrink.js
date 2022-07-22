@@ -46,23 +46,25 @@ function CardDrink({ drink, page, index }) {
         width: '70%',
       } }
     >
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        src={ drink.image }
-        alt="drinkCardImg"
-        style={ { width: '100%' } }
-      />
+      <Link to={ `drinks/${drink.id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ drink.image }
+          alt="drinkCardImg"
+          style={ { width: '100%' } }
+        />
+        <h3
+          data-testid={ `${index}-horizontal-name` }
+          style={ { textAlign: 'center', fontSize: '18px' } }
+        >
+          { drink.name }
+        </h3>
+      </Link>
       <h3
         data-testid={ `${index}-horizontal-top-text` }
         style={ { fontSize: '18px' } }
       >
         { `${drink.alcoholicOrNot} - ${drink.category}` }
-      </h3>
-      <h3
-        data-testid={ `${index}-horizontal-name` }
-        style={ { textAlign: 'center', fontSize: '18px' } }
-      >
-        { drink.name }
       </h3>
       <h3
         data-testid={ `${index}-horizontal-done-date` }

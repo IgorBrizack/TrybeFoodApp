@@ -9,7 +9,7 @@ function ShareButton({ id, type }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const copyFunction = () => {
-    if (id) {
+    if (id && type) {
       const str = `http://localhost:3000/${type}/${id}`;
       copy(str);
       return setIsCopied(true);
@@ -25,7 +25,9 @@ function ShareButton({ id, type }) {
   };
 
   return (
-    <div>
+    <div
+      src={ shareIcon }
+    >
       <button
         data-testid="share-btn"
         type="button"
