@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ShareButton from './ShareButton';
 
 function CardFood({ meal, page, index }) {
   if (page === 'foods') {
@@ -33,6 +34,64 @@ function CardFood({ meal, page, index }) {
       </div>
     );
   }
+  return (
+    <div
+      style={ {
+        alignItems: 'center',
+        border: '1px solid black',
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto',
+        padding: '20px',
+        width: '70%',
+      } }
+    >
+      <Link to={ `foods/${meal.id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          src={ meal.image }
+          alt="mealCardImg"
+          style={ { width: '100%' } }
+        />
+      </Link>
+      <h3
+        data-testid={ `${index}-horizontal-top-text` }
+        style={ { fontSize: '18px' } }
+      >
+        { `${meal.nationality} - ${meal.category}` }
+      </h3>
+      <Link to={ `foods/${meal.id}` }>
+        <h3
+          data-testid={ `${index}-horizontal-name` }
+          style={ { textAlign: 'center', fontSize: '18px' } }
+        >
+          { meal.name }
+        </h3>
+      </Link>
+      <h3
+        data-testid={ `${index}-horizontal-done-date` }
+        style={ { fontSize: '18px' } }
+      >
+        { meal.doneDate }
+      </h3>
+      {
+        meal.tags.map((tag) => (
+          <h3
+            key={ tag }
+            data-testid={ `${index}-${tag}-horizontal-tag` }
+            style={ { fontSize: '18px' } }
+          >
+            { tag }
+          </h3>
+        ))
+      }
+      <div
+        data-testid={ `${index}-horizontal-share-btn` }
+      >
+        <ShareButton id={ meal.id } type="foods" />
+      </div>
+    </div>
+  );
 }
 
 CardFood.propTypes = {

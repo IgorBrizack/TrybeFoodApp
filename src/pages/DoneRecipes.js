@@ -15,22 +15,22 @@ function DoneRecipes() {
       <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       { storageItems
       && (storageItems.map((item, index) => {
-        if (item.type === 'food') {
+        if (item.type === 'Foods') {
           return (
             <CardFood
-              meal={ item }
               key={ item.id }
-              index={ index }
+              meal={ item }
               page="doneRecipes"
+              index={ index }
             />
           );
         }
         return (
           <CardDrink
-            drink={ item }
             key={ item.id }
-            index={ index }
+            drink={ item }
             page="doneRecipes"
+            index={ index }
           />
         );
       })

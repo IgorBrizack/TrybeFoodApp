@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
+import { setRecipesMeal, setRecipesDrink } from '../helpers/setDoneRecipes';
 
 const QTD_INGREDIENTS = 20;
 
@@ -59,8 +60,7 @@ function RecipeInProgress({ match }) {
     const checks = [];
     for (let index = 1; index <= QTD_INGREDIENTS; index += 1) {
       if (item[`strIngredient${index}`]) {
-        ingredients.push({
-          ingredient: item[`strIngredient${index}`],
+        ingredients.push({ ingredient: item[`strIngredient${index}`],
           measure: item[`strMeasure${index}`] });
         checks.push(false);
       }
@@ -70,9 +70,8 @@ function RecipeInProgress({ match }) {
     setInittialStorage(checks);
   }
   function checkStorageData() {
-    const storage = localStorage;
-    if (storage.getItem('inProgressRecipes') && item) {
-      const objStorage = JSON.parse(storage.getItem('inProgressRecipes'));
+    if (localStorage.getItem('inProgressRecipes') && item) {
+      const objStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (item.idMeal && Object.keys(objStorage.meals).includes(item.idMeal)) {
         return setChecked(objStorage.meals[item.idMeal]);
       }
@@ -80,9 +79,7 @@ function RecipeInProgress({ match }) {
     }
   }
   useEffect(() => {
-    if (match.path.includes('foods')) {
-      return getFood();
-    }
+    if (match.path.includes('foods')) return getFood();
     return getDrink();
   }, []);
   useEffect(() => {
@@ -93,9 +90,7 @@ function RecipeInProgress({ match }) {
   }, [item]);
   function saveChecked(indexIng) {
     const newChecked = checked.map((bool, index) => {
-      if (index === indexIng) {
-        return !bool;
-      }
+      if (index === indexIng) return !bool;
       return bool;
     });
     setChecked(newChecked);
@@ -111,12 +106,20 @@ function RecipeInProgress({ match }) {
     };
     return storage.setItem('inProgressRecipes', JSON.stringify(newObj));
   }
+  function handleDoneRecipes(type) {
+    const date = new Date().toLocaleDateString();
+    if (type === 'Foods') {
+      setRecipesMeal(item, date);
+      return history.push('/done-recipes');
+    }
+    setRecipesDrink(item, date);
+    history.push('/done-recipes');
+  }
   if (dataIngredients && item) {
     if (match.path.includes('foods')) {
       return (
         <div
-          style={ {
-            alignItems: 'center',
+          style={ { alignItems: 'center',
             border: '1px solid black',
             display: 'flex',
             flexDirection: 'column',
@@ -166,7 +169,7 @@ function RecipeInProgress({ match }) {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="finish-recipe-btn"
-              onClick={ () => history.push('/done-recipes') }
+              onClick={ () => handleDoneRecipes('Foods') }
               disabled={ !checked.every((bool) => bool === true) }
             >
               Finish Recipe
@@ -177,8 +180,7 @@ function RecipeInProgress({ match }) {
     }
     return (
       <div
-        style={ {
-          alignItems: 'center',
+        style={ { alignItems: 'center',
           border: '1px solid black',
           display: 'flex',
           flexDirection: 'column',
@@ -199,9 +201,7 @@ function RecipeInProgress({ match }) {
         <div>
           {dataIngredients.map(({ ingredient, measure }, indexIng) => (
             <div
-              style={ {
-                display: 'flex',
-              } }
+              style={ { display: 'flex' } }
               key={ indexIng }
             >
               <label
@@ -228,7 +228,7 @@ function RecipeInProgress({ match }) {
             style={ { position: 'fixed', bottom: '0px' } }
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => history.push('/done-recipes') }
+            onClick={ () => handleDoneRecipes('Drinks') }
             disabled={ !checked.every((bool) => bool === true) }
           >
             Finish Recipe
