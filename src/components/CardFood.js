@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
+import shareIcon from '../images/shareIcon.svg';
 
 function CardFood({ meal, page, index }) {
   if (page === 'foods') {
@@ -85,6 +86,7 @@ function CardFood({ meal, page, index }) {
       }
       <div
         data-testid={ `${index}-horizontal-share-btn` }
+        src={ shareIcon }
       >
         <ShareButton id={ meal.id } type="foods" />
       </div>

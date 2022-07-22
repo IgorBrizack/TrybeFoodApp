@@ -13,11 +13,11 @@ function DoneRecipes() {
     setToBeRendered(storageItems);
   }
   function handleBtnFood() {
-    const onlyFoods = storageItems.filter((item) => item.type === 'Foods');
+    const onlyFoods = storageItems.filter((item) => item.type === 'food');
     setToBeRendered([...onlyFoods]);
   }
   function handleBtnDrink() {
-    const onlyDrinks = storageItems.filter((item) => item.type === 'Drinks');
+    const onlyDrinks = storageItems.filter((item) => item.type === 'drink');
     setToBeRendered([...onlyDrinks]);
   }
   return (
@@ -46,7 +46,7 @@ function DoneRecipes() {
       </button>
       { storageItems[0]
       && (toBeRendered.map((item, index) => {
-        if (item.type === 'Foods') {
+        if (item.type === 'food') {
           return (
             <CardFood
               key={ item.id }
