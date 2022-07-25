@@ -26,7 +26,6 @@ const areas = require('../mocks/areas');
 const japaneseMeals = require('../mocks/japaneseMeals');
 const italianMeals = require('../mocks/italianMeals');
 const oneDrinkId15997 = require('./oneDrinkId15997');
-const otherMeal = require('../mocks/otherMeal');
 
 const fetch = (url) => Promise.resolve({
   status: 200,
@@ -66,9 +65,6 @@ const fetch = (url) => Promise.resolve({
       url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977'
     )
       return Promise.resolve(oneMeal);
-
-    if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=53060')
-      return Promise.resolve(otherMeal);
 
     if (
       url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aquamarine' ||
