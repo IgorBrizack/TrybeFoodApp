@@ -1,4 +1,4 @@
-export function factorTags(tags) {
+function factorTags(tags) {
   if (!tags) {
     return [];
   }
@@ -9,7 +9,7 @@ export function factorTags(tags) {
   }
 }
 
-export function checkIfAlcoholic(str) {
+function checkIfAlcoholic(str) {
   if (str === 'Alcoholic') {
     return 'Alcoholic';
   } if (str === 'Non alcoholic') {
@@ -18,7 +18,7 @@ export function checkIfAlcoholic(str) {
   return 'Optional alcohol';
 }
 
-export function getDate(date) {
+function getDate(date) {
   const d = date.split('/');
   const dat = `${d[1]}/${d[0]}/${d[2]}`;
   return dat;
