@@ -39,7 +39,6 @@ describe('Implemente testes que verifiquem a integridade do funcionamento do bot
         image: "https://www.thecocktaildb.com/images/media/drink/pbw4e51606766578.jpg",
       }
     ]));
-    // jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url));
 
     const history = createMemoryHistory();
 
