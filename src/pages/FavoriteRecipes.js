@@ -31,8 +31,6 @@ function FavoriteRecipes() {
     setToBeRendered(removeItem);
   }
 
-  // refatoracao, essas funcoes estao no doneRecipes tb
-
   return (
     <div>
       <Header page="Favorite Recipes" history={ history } />
