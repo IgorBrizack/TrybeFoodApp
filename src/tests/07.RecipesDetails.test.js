@@ -10,6 +10,12 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
   it('Verifique se ao clicar em um item da lista renderizada na tela, se há um redirecionamento para a tela de detalhes da receita', async () => {
     jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url) )
     localStorage.removeItem('favoriteRecipes');
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: () => {},
+      },
+    });
+    jest.spyOn(navigator.clipboard, "writeText");
     const localStorageMock = (() => {
       let store = {};
       return {
@@ -81,10 +87,13 @@ describe('Faça implenetações de testes para validar o correto funcionamento d
 
     const shareButtonDrinks = screen.getByRole('img', {  name: /shareicon/i});
     expect(shareButtonDrinks).toBeInTheDocument();
+    userEvent.click(shareButtonDrinks)
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/drinks/15997')
 
     const expectButton2 = await screen.findByRole('button', {  name: /continue recipe/i})
     expect(expectButton2).toBeInTheDocument()
     userEvent.click(expectButton2);
-    
   })
+
+  
 })
