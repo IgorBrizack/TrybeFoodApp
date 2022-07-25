@@ -10,12 +10,10 @@ function FavoriteRecipes() {
   useEffect(() => {
     const storageItems = localStorage.getItem('favoriteRecipes')
       ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
-    console.log(storageItems, 'storage');
     setToBeRendered(storageItems);
   }, []);
 
   useEffect(() => {
-    console.log(toBeRendered, 'state');
   }, [toBeRendered]);
   return (
     <div>
