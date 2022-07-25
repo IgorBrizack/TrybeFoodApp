@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function DesfavoriteButton({ dataItem }) {
+function DesfavoriteButton({ dataItem, setToBeRendered, toBeRendered }) {
   const removeFromFavoriteList = () => {
-    const itemsFromLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (itemsFromLocalStorage) {
-      const removeItem = itemsFromLocalStorage
-        .filter((item) => item.id !== dataItem.id);
-      localStorage.setItem('favoriteRecipes', removeItem);
-    }
+    const removeItem = toBeRendered
+      .filter((item) => item.id !== dataItem.id);
+    localStorage.setItem('favoriteRecipes', removeItem);
+    setToBeRendered(removeItem);
   };
 
   return (

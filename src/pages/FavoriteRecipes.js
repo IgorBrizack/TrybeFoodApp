@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
-import DesfavoriteButton from '../components/DesfavoriteButton';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -22,6 +21,14 @@ function FavoriteRecipes() {
   function handleBtnDrink() {
     const onlyDrinks = storageItems.filter((item) => item.type === 'drink');
     setToBeRendered([...onlyDrinks]);
+  }
+
+  function removeFromFavoriteList({ target }) {
+    const removeItem = toBeRendered
+      .filter((item) => item.id !== target.id);
+    const newItems = JSON.stringify(removeItem);
+    localStorage.setItem('favoriteRecipes', newItems);
+    setToBeRendered(removeItem);
   }
 
   // refatoracao, essas funcoes estao no doneRecipes tb
@@ -50,7 +57,7 @@ function FavoriteRecipes() {
       >
         Food
       </button>
-      { toBeRendered.length > 0 ? (
+      { toBeRendered[0] && (
         toBeRendered.map((item, index) => {
           console.log(item);
           if (item.type === 'food') {
@@ -97,7 +104,18 @@ function FavoriteRecipes() {
                   data-testid={ `${index}-horizontal-favorite-btn` }
                   src={ blackHeartIcon }
                 >
-                  <DesfavoriteButton dataItem={ item } />
+                  <button
+                    data-testid="favorite-btn"
+                    type="button"
+                    onClick={ removeFromFavoriteList }
+                    src={ blackHeartIcon }
+                  >
+                    <img
+                      id={ item.id }
+                      src={ blackHeartIcon }
+                      alt="favoriteIcon"
+                    />
+                  </button>
                 </div>
               </div>
             );
@@ -145,12 +163,23 @@ function FavoriteRecipes() {
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 src={ blackHeartIcon }
               >
-                <DesfavoriteButton dataItem={ item } />
+                <button
+                  data-testid="favorite-btn"
+                  type="button"
+                  onClick={ removeFromFavoriteList }
+                  src={ blackHeartIcon }
+                >
+                  <img
+                    id={ item.id }
+                    src={ blackHeartIcon }
+                    alt="favoriteIcon"
+                  />
+                </button>
               </div>
             </div>
           );
         })
-      ) : (console.log('nao temos favoritos')) }
+      )}
     </div>
   );
 }
