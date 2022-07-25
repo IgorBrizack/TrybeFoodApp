@@ -30,7 +30,6 @@ function RecipeDetails() {
           .includes(dataItem[0].idDrink));
       }
     }
-    console.log(dataItem);
   }, [dataItem]);
   const recommendedItems = async (type) => {
     let recommendation = '';
