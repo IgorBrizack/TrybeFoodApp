@@ -4,9 +4,8 @@ export function factorTags(tags) {
   }
   if (tags.includes(', ')) {
     return tags.split(', ');
-  } if (!tags.includes(', ')) {
-    return [tags];
   }
+  return [tags];
 }
 
 export function checkIfAlcoholic(str) {
