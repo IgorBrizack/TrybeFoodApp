@@ -7,18 +7,11 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const { history } = useHistory();
-<<<<<<< HEAD
-  const [toBeRendered, setToBeRendered] = useState([]);
-  useEffect(() => {
-    const storageItems = localStorage.getItem('favoriteRecipes')
-      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
-=======
   const storageItems = localStorage.getItem('favoriteRecipes')
     ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
   const [toBeRendered, setToBeRendered] = useState(storageItems);
 
   function handleBtnAll() {
->>>>>>> 1bfac58149e376172bdf0362b7898c33ed67e321
     setToBeRendered(storageItems);
   }
   function handleBtnFood() {
@@ -40,11 +33,6 @@ function FavoriteRecipes() {
 
   // refatoracao, essas funcoes estao no doneRecipes tb
 
-<<<<<<< HEAD
-  useEffect(() => {
-  }, [toBeRendered]);
-=======
->>>>>>> 1bfac58149e376172bdf0362b7898c33ed67e321
   return (
     <div>
       <Header page="Favorite Recipes" history={ history } />
