@@ -55,11 +55,10 @@ function FavoriteRecipes() {
         data-testid="filter-by-drink-btn"
         onClick={ handleBtnDrink }
       >
-        Food
+        Drink
       </button>
       { toBeRendered[0] && (
         toBeRendered.map((item, index) => {
-          console.log(item);
           if (item.type === 'food') {
             return (
               <div
