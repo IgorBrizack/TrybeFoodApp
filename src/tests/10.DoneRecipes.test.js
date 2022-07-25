@@ -86,4 +86,68 @@ describe('Testa a tela de receitas prontas', () => {
 
     history.push("/done-recipes");
   });
+  it('Testa a cópia do link', async () => {
+    const localStorageMock = (() => {
+      let store = {};
+      return {
+      getItem(key) {
+      return store[key];
+      },
+      setItem(key, value) {
+      store[key] = value.toString();
+      },
+      clear() {
+      store = {};
+      },
+      removeItem(key) {
+      delete store[key];
+      }
+      };
+      })();
+      Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock
+    });
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      {
+        id: '52771',
+        type: 'food',
+        nationality: 'Italian',
+        category: 'Vegetarian',
+        alcoholicOrNot: '',
+        name: 'Spicy Arrabiata Penne',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+        doneDate: '23/06/2020',
+        tags: ['Pasta', 'Curry'],
+      },
+      {
+        id: '17203',
+        type: 'drink',
+        nationality: '',
+        category: 'Ordinary Drink',
+        alcoholicOrNot:  'Alcoholic',
+        name: 'Kir',
+        image: 'https://www.thecocktaildb.com/images/media/drink/apneom1504370294.jpg',
+        doneDate: '23/06/2020',
+        tags: ['IBA', 'ContemporaryClassic'],
+      },
+    ]));
+    Object.defineProperty(navigator, "clipboard", {
+      value: {
+        writeText: () => {},
+      },
+    });
+    jest.spyOn(global, 'fetch').mockImplementation((url) => fetch(url));
+    jest.spyOn(navigator.clipboard, "writeText");
+
+    const history = createMemoryHistory();
+    await act( async () => render(
+      <Router history={ history }>
+        <App />
+      </Router>
+    ));
+    history.push('/done-recipes');
+    const shareBtn = await screen.findAllByTestId('share-btn');
+    userEvent.click(shareBtn[0]);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/foods/52771');
+  });
 });
