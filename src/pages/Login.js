@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../styles/main.css';
 
 function Login() {
   const history = useHistory();
@@ -36,26 +37,27 @@ function Login() {
     disabled();
   }, [inputs]);
   return (
-    <form>
+    <form className="formDiv">
+      <h1 className="logoApp">Food-Trybe</h1>
       <label htmlFor="inputEmail" onSubmit={ handleSubmit }>
-        E-mail
         <input
           data-testid="email-input"
           id="inputEmail"
           type="email"
           name="email"
           value={ inputs.email }
+          placeholder="E-mail"
           onChange={ handleChange }
         />
       </label>
       <label htmlFor="inputPassword">
-        Password
         <input
           data-testid="password-input"
           id="inputPassword"
           type="password"
           name="password"
           value={ inputs.password }
+          placeholder="Senha"
           onChange={ handleChange }
         />
       </label>
@@ -64,6 +66,7 @@ function Login() {
         type="submit"
         onClick={ handleSubmit }
         disabled={ isDisabled }
+        className="btn btn-danger"
       >
         Entrar
       </button>

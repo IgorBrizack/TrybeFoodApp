@@ -8,28 +8,32 @@ function Footer() {
 
   return (
     <div data-testid="footer" className="footer">
-      <button
-        data-testid="drinks-bottom-btn"
-        type="button"
-        onClick={ () => history.push('/drinks') }
-        src={ drinkIcon }
-      >
-        <img
+      <div className="insideFooter">
+        <button
+          data-testid="drinks-bottom-btn"
+          type="button"
+          onClick={ () => history.push('/drinks') }
           src={ drinkIcon }
-          alt="drinkIcon"
-        />
-      </button>
-      <button
-        data-testid="food-bottom-btn"
-        type="button"
-        onClick={ () => history.push('/foods') }
-        src="./images/mealIcon.svg"
-      >
-        <img
-          src={ mealIcon }
-          alt="mealIcon"
-        />
-      </button>
+          className="btn btn-danger"
+        >
+          <img
+            src={ drinkIcon }
+            alt="drinkIcon"
+          />
+        </button>
+        <button
+          data-testid="food-bottom-btn"
+          type="button"
+          onClick={ () => history.push('/foods') }
+          src="./images/mealIcon.svg"
+          className="btn btn-danger"
+        >
+          <img
+            src={ mealIcon }
+            alt="mealIcon"
+          />
+        </button>
+      </div>
     </div>
   );
 }

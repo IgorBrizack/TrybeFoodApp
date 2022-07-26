@@ -32,6 +32,7 @@ function ShareButton({ id, type }) {
         data-testid="share-btn"
         type="button"
         onClick={ () => copyFunction() }
+        className="btn btn-danger"
       >
         {isCopied ? (<p>Link copied!</p>) : (
           <img

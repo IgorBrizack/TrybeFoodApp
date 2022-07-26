@@ -10,7 +10,7 @@ const DRINKS_DETAILS_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/loo
 const DRINKS_TO_RECOMMEND_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const MEALS_TO_RECOMMEND_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const QTD_INGREDIENTS = 20;
-const ZERO = 0;
+const ONE = 1;
 
 function RecipeDetails() {
   const { setRecommended } = useContext(context);
@@ -80,21 +80,22 @@ function RecipeDetails() {
     fetchItemDetails()
   ), []);
   return (
-    <div>
+    <div className="detailsItem">
       { isFoodOrDrinkDetails === 'foods' && (dataItem.map((value, index) => (
         <div
           style={ {
             alignItems: 'center',
-            border: '1px solid black',
             display: 'flex',
             flexDirection: 'column',
             padding: '20px',
-            width: '50%',
+            width: '100%',
           } }
           key={ index }
         >
-          <ShareButton />
-          <FavoriteButton dataItem={ dataItem } type="Foods" />
+          <div className="btnsShareFavorite">
+            <ShareButton />
+            <FavoriteButton dataItem={ dataItem } type="Foods" />
+          </div>
           <img
             style={ { width: '40%' } }
             src={ value.strMealThumb }
@@ -128,18 +129,22 @@ function RecipeDetails() {
           </p>
           <iframe
             data-testid="video"
-            autoPlay={ ZERO }
+            autoPlay={ ONE }
             title="video tutorial"
-            width="420"
-            height="315"
+            width="300"
+            height="220"
+            scrolling="no"
             src={ value.strYoutube }
           />
+          <div className="separator" />
           <CarouselFadeExample />
+          <div className="separator" />
           {isInProgress ? (
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
+              className="btn btn-danger"
               onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Continue Recipe
@@ -149,6 +154,7 @@ function RecipeDetails() {
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
+              className="btn btn-danger"
               onClick={ () => history.push(`/foods/${dataItem[0].idMeal}/in-progress`) }
             >
               Start Recipe
@@ -168,8 +174,10 @@ function RecipeDetails() {
           } }
           key={ index }
         >
-          <ShareButton />
-          <FavoriteButton dataItem={ dataItem } type="Drinks" />
+          <div className="btnsShareFavorite">
+            <ShareButton />
+            <FavoriteButton dataItem={ dataItem } type="Drinks" />
+          </div>
           <img
             style={ { width: '40%' } }
             src={ value.strDrinkThumb }
@@ -204,13 +212,16 @@ function RecipeDetails() {
           <p data-testid="instructions">
             {value.strInstructions}
           </p>
+          <div className="separator" />
           <CarouselFadeExample />
+          <div className="separator" />
           {isInProgress ? (
             <button
               style={ { position: 'fixed', bottom: '0px' } }
               type="button"
               data-testid="start-recipe-btn"
               onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
+              className="btn btn-danger"
             >
               Continue Recipe
             </button>
@@ -220,6 +231,7 @@ function RecipeDetails() {
               type="button"
               data-testid="start-recipe-btn"
               onClick={ () => history.push(`/drinks/${dataItem[0].idDrink}/in-progress`) }
+              className="btn btn-danger"
             >
               Start Recipe
             </button>

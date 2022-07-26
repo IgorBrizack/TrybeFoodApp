@@ -8,14 +8,14 @@ function CardFood({ meal, page, index }) {
   if (page === 'foods') {
     return (
       <div
+        className="recipeCard"
         data-testid={ `${index}-recipe-card` }
         style={ {
           alignItems: 'center',
-          border: '1px solid black',
           display: 'flex',
           flexDirection: 'column',
           padding: '20px',
-          width: '50%',
+          width: '70%',
         } }
       >
         <Link to={ `foods/${meal.idMeal}` }>
@@ -25,21 +25,21 @@ function CardFood({ meal, page, index }) {
             alt="mealCardImg"
             style={ { width: '100%' } }
           />
-          <h3
+          <h5
             data-testid={ `${index}-card-name` }
             style={ { textAlign: 'center' } }
           >
             { meal.strMeal }
-          </h3>
+          </h5>
         </Link>
       </div>
     );
   }
   return (
     <div
+      className="recipeCard"
       style={ {
         alignItems: 'center',
-        border: '1px solid black',
         display: 'flex',
         flexDirection: 'column',
         margin: 'auto',

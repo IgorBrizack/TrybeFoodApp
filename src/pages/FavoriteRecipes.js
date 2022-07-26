@@ -32,29 +32,34 @@ function FavoriteRecipes() {
   }
 
   return (
-    <div>
+    <div className="detailsItem">
       <Header page="Favorite Recipes" history={ history } />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ handleBtnAll }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ handleBtnFood }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ handleBtnDrink }
-      >
-        Drink
-      </button>
+      <div className="btnsCategory">
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleBtnAll }
+          className="btn btn-danger"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ handleBtnFood }
+          className="btn btn-danger right"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleBtnDrink }
+          className="btn btn-danger right"
+        >
+          Drink
+        </button>
+      </div>
       { toBeRendered[0] && (
         toBeRendered.map((item, index) => {
           if (item.type === 'food') {

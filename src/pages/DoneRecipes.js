@@ -21,29 +21,36 @@ function DoneRecipes() {
     setToBeRendered([...onlyDrinks]);
   }
   return (
-    <div>
+    <div className="detailsItem">
       <Header page="Done Recipes" history={ history } />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ handleBtnAll }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ handleBtnFood }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ handleBtnDrink }
-      >
-        Drinks
-      </button>
+      <div className="separator" />
+      <div className="btnsCategory">
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleBtnAll }
+          className="btn btn-danger"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ handleBtnFood }
+          className="btn btn-danger right"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleBtnDrink }
+          className="btn btn-danger right"
+        >
+          Drinks
+        </button>
+      </div>
+      <div className="separator" />
       { storageItems[0]
       && (toBeRendered.map((item, index) => {
         if (item.type === 'food') {

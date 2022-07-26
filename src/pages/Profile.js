@@ -16,32 +16,36 @@ function Profile() {
       <Header page="Profile" history={ history } />
       {storage && (
         <div>
-          Profile
-          <p data-testid="profile-email">{ storage.email }</p>
-          <button
-            data-testid="profile-done-btn"
-            type="button"
-            onClick={ () => history.push('/done-recipes') }
-          >
-            Done Recipes
-          </button>
-          <button
-            data-testid="profile-favorite-btn"
-            type="button"
-            onClick={ () => history.push('/favorite-recipes') }
-          >
-            Favorite Recipes
-          </button>
-          <button
-            data-testid="profile-logout-btn"
-            type="button"
-            onClick={ () => {
-              localStorage.clear();
-              history.push('/');
-            } }
-          >
-            Logout
-          </button>
+          <p data-testid="profile-email" className="emailProfile">{ storage.email }</p>
+          <div className="btnsCategory">
+            <button
+              data-testid="profile-done-btn"
+              type="button"
+              onClick={ () => history.push('/done-recipes') }
+              className="btn btn-danger"
+            >
+              Done Recipes
+            </button>
+            <button
+              data-testid="profile-favorite-btn"
+              type="button"
+              onClick={ () => history.push('/favorite-recipes') }
+              className="btn btn-danger"
+            >
+              Favorite Recipes
+            </button>
+            <button
+              data-testid="profile-logout-btn"
+              type="button"
+              onClick={ () => {
+                localStorage.clear();
+                history.push('/');
+              } }
+              className="btn btn-danger"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       )}
       <Footer />
