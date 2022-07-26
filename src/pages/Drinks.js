@@ -83,9 +83,9 @@ function Drinks() {
   }
 
   return (
-    <div>
+    <div className="divMain">
       <Header page="Drinks" history={ history } />
-      <nav>
+      <nav className="navigationFilters">
         <ul
           style={ {
             display: 'flex',
@@ -103,19 +103,15 @@ function Drinks() {
                 <li
                   key={ index }
                   style={ {
-                    border: '1px solid black',
                     textAlign: 'center',
-                    width: '50%',
+                    padding: '1px 1px',
+                    width: 'auto',
                   } }
                 >
                   <button
                     data-testid={ `${strCategory}-category-filter` }
                     type="button"
-                    style={ {
-                      border: '1px solid black',
-                      textAlign: 'center',
-                      width: '100%',
-                    } }
+                    className="btn btn-danger"
                     onClick={ () => toggleFilter(strCategory) }
                   >
                     { strCategory }

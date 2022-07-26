@@ -8,14 +8,14 @@ function CardDrink({ drink, page, index }) {
   if (page === 'drinks') {
     return (
       <div
+        className="recipeCard"
         data-testid={ `${index}-recipe-card` }
         style={ {
           alignItems: 'center',
-          border: '1px solid black',
           display: 'flex',
           flexDirection: 'column',
           padding: '20px',
-          width: '50%',
+          width: '70%',
         } }
       >
         <Link to={ `drinks/${drink.idDrink}` }>
@@ -25,21 +25,21 @@ function CardDrink({ drink, page, index }) {
             alt="drinkCardImg"
             style={ { width: '100%' } }
           />
-          <h3
+          <h5
             style={ { textAlign: 'center' } }
             data-testid={ `${index}-card-name` }
           >
             { drink.strDrink }
-          </h3>
+          </h5>
         </Link>
       </div>
     );
   }
   return (
     <div
+      className="recipeCard"
       style={ {
         alignItems: 'center',
-        border: '1px solid black',
         display: 'flex',
         flexDirection: 'column',
         margin: 'auto',

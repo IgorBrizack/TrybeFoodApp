@@ -85,6 +85,7 @@ function FavoriteButton({ dataItem, type }) {
         type="button"
         onClick={ handleClick }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        className="btn btn-danger"
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }

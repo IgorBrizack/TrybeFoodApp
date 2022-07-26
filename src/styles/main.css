@@ -1,0 +1,70 @@
+html {
+  height: 100vh;
+}
+
+body {
+  background-image: url("../cssImages/dinnerTable.jpg");
+  height: 100vh;
+}
+
+.formDiv {
+  display: flex;
+  flex-direction: column;
+  margin: 50% auto;
+  width: 60%;
+}
+
+.logoApp {
+  color: #dc3545;
+  font-family: 'Lobster', cursive;
+  font-size: 50px;
+  text-align: center;
+  text-shadow: 3px 3px black;
+}
+
+.recipeCard {
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.recipeCard:hover {
+  box-shadow: 2px 2px gray;
+}
+
+.insideFooter {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.detailsItem {
+  background: white;
+}
+
+.separator {
+  margin: 20px 0;
+}
+
+.btnsShareFavorite {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.btnsCategory {
+  display: flex;
+  justify-content: center;
+}
+
+.btnsCategory .right {
+  margin-left: 5px;
+}
+
+.emailProfile {
+  color: white;
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  text-align: center;
+  text-shadow: 1px 1px black;
+}

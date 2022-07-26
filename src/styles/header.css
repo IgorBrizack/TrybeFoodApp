@@ -1,0 +1,14 @@
+.divHeader {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  top: 0;
+  width: 100%;
+}
+
+.titleSection {
+  color: #dc3545;
+  font-family: 'Lobster', cursive;
+  font-size: 40px;
+  text-align: center;
+}

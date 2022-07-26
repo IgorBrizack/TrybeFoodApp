@@ -119,14 +119,18 @@ function RecipeInProgress({ match }) {
     if (match.path.includes('foods')) {
       return (
         <div
+          className="detailsItem"
           style={ { alignItems: 'center',
-            border: '1px solid black',
             display: 'flex',
             flexDirection: 'column',
             padding: '20px',
-            width: '50%',
+            width: '100%',
           } }
         >
+          <div className="btnsShareFavorite">
+            <ShareButton />
+            <FavoriteButton dataItem={ [item] } type="Foods" />
+          </div>
           <img
             style={ { width: '40%' } }
             src={ item.strMealThumb }
@@ -134,8 +138,6 @@ function RecipeInProgress({ match }) {
             data-testid="recipe-photo"
           />
           <h1 data-testid="recipe-title">{item.strMeal}</h1>
-          <ShareButton />
-          <FavoriteButton dataItem={ [item] } type="Foods" />
           <p data-testid="recipe-category">{item.strCategory}</p>
           <div>
             {dataIngredients.map((valueIngredient, indexIng) => (
@@ -171,6 +173,7 @@ function RecipeInProgress({ match }) {
               data-testid="finish-recipe-btn"
               onClick={ () => handleDoneRecipes('Foods') }
               disabled={ !checked.every((bool) => bool === true) }
+              className="btn btn-danger"
             >
               Finish Recipe
             </button>
@@ -188,6 +191,10 @@ function RecipeInProgress({ match }) {
           width: '50%',
         } }
       >
+        <div className="btnsShareFavorite">
+          <ShareButton />
+          <FavoriteButton dataItem={ [item] } type="Drinks" />
+        </div>
         <img
           style={ { width: '40%' } }
           src={ item.strDrinkThumb }
@@ -195,8 +202,6 @@ function RecipeInProgress({ match }) {
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">{item.strDrink}</h1>
-        <ShareButton />
-        <FavoriteButton dataItem={ [item] } type="Drinks" />
         <p data-testid="recipe-category">{item.strAlcoholic}</p>
         <div>
           {dataIngredients.map(({ ingredient, measure }, indexIng) => (
@@ -230,6 +235,7 @@ function RecipeInProgress({ match }) {
             data-testid="finish-recipe-btn"
             onClick={ () => handleDoneRecipes('Drinks') }
             disabled={ !checked.every((bool) => bool === true) }
+            className="btn btn-danger"
           >
             Finish Recipe
           </button>

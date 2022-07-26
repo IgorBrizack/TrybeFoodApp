@@ -4,6 +4,7 @@ import context from '../context/Context';
 import Header from '../components/Header';
 import CardFood from '../components/CardFood';
 import Footer from '../components/Footer';
+import '../styles/mainSession.css';
 
 const NUMBER_INDEX_MEALS = 12;
 const NUMBER_INDEX_CATEGORY = 5;
@@ -83,9 +84,9 @@ function Foods() {
   }
 
   return (
-    <div>
+    <div className="divMain">
       <Header page="Foods" history={ history } />
-      <nav>
+      <nav className="navigationFilters">
         <ul
           style={ {
             display: 'flex',
@@ -104,17 +105,14 @@ function Foods() {
                   key={ strCategory }
                   style={ {
                     textAlign: 'center',
-                    width: '50%',
+                    padding: '1px 1px',
+                    width: 'auto',
                   } }
                 >
                   <button
                     data-testid={ `${strCategory}-category-filter` }
                     type="button"
-                    style={ {
-                      border: '1px solid black',
-                      textAlign: 'center',
-                      width: '100%',
-                    } }
+                    className="btn btn-danger"
                     onClick={ () => toggleFilter(strCategory) }
                   >
                     { strCategory }
