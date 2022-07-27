@@ -166,11 +166,10 @@ function RecipeDetails() {
         <div
           style={ {
             alignItems: 'center',
-            border: '1px solid black',
             display: 'flex',
             flexDirection: 'column',
             padding: '20px',
-            width: '50%',
+            width: '100%',
           } }
           key={ index }
         >
