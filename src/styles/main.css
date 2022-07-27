@@ -68,3 +68,9 @@ body {
   text-align: center;
   text-shadow: 1px 1px black;
 }
+
+.btnFinish {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
