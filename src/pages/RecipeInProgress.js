@@ -120,7 +120,8 @@ function RecipeInProgress({ match }) {
       return (
         <div
           className="detailsItem"
-          style={ { alignItems: 'center',
+          style={ { justifyContent: 'center',
+            alignItems: 'center',
             display: 'flex',
             flexDirection: 'column',
             padding: '20px',
@@ -167,16 +168,18 @@ function RecipeInProgress({ match }) {
             <p data-testid="instructions">
               {item.strInstructions}
             </p>
-            <button
-              style={ { position: 'fixed', bottom: '0px' } }
-              type="button"
-              data-testid="finish-recipe-btn"
-              onClick={ () => handleDoneRecipes('Foods') }
-              disabled={ !checked.every((bool) => bool === true) }
-              className="btn btn-danger"
-            >
-              Finish Recipe
-            </button>
+            <div className="btnFinish">
+              <button
+                style={ { position: 'fixed', bottom: '0px' } }
+                type="button"
+                data-testid="finish-recipe-btn"
+                onClick={ () => handleDoneRecipes('Foods') }
+                disabled={ !checked.every((bool) => bool === true) }
+                className="btn btn-danger"
+              >
+                Finish Recipe
+              </button>
+            </div>
           </div>
         </div>
       );
@@ -184,7 +187,8 @@ function RecipeInProgress({ match }) {
     return (
       <div
         className="detailsItem"
-        style={ { alignItems: 'center',
+        style={ { justifyContent: 'center',
+          alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
           padding: '20px',
@@ -229,16 +233,18 @@ function RecipeInProgress({ match }) {
           <p data-testid="instructions">
             {item.strInstructions}
           </p>
-          <button
-            style={ { position: 'fixed', bottom: '0px' } }
-            type="button"
-            data-testid="finish-recipe-btn"
-            onClick={ () => handleDoneRecipes('Drinks') }
-            disabled={ !checked.every((bool) => bool === true) }
-            className="btn btn-danger"
-          >
-            Finish Recipe
-          </button>
+          <div className="btnFinish">
+            <button
+              style={ { position: 'fixed', bottom: '0px' } }
+              type="button"
+              data-testid="finish-recipe-btn"
+              onClick={ () => handleDoneRecipes('Drinks') }
+              disabled={ !checked.every((bool) => bool === true) }
+              className="btn btn-danger"
+            >
+              Finish Recipe
+            </button>
+          </div>
         </div>
       </div>
     );
