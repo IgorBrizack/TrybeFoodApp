@@ -1,10 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
 import { createMemoryHistory } from 'history';
-import { act } from 'react-dom/test-utils';
 import { Router } from 'react-router-dom';
 import App from '../App';
-import fetch from './helpers/mocks/fetch';
 
 describe('Implemente testes que verifiquem a integridade do funcionamento do botão de favoritar' ,() => {
   it('verifique se um item favoritado aparece na tela', async () => {
