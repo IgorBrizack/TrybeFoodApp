@@ -83,116 +83,130 @@ function Drinks() {
   }
 
   return (
-    <div className="divMain">
-      <Header page="Drinks" history={ history } />
-      <nav className="navigationFilters">
-        <ul
-          style={ {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            listStyle: 'none',
-            paddingInlineStart: '0',
-          } }
-        >
-          { categoryFilter[0] && (
-            categoryFilter
-              .filter((category, index) => index < NUMBER_INDEX_CATEGORY
-                || category.strCategory === 'All')
-              .map(({ strCategory }, index) => (
-                <li
-                  key={ index }
-                  style={ {
-                    textAlign: 'center',
-                    padding: '1px 1px',
-                    width: 'auto',
-                  } }
-                >
-                  <button
-                    data-testid={ `${strCategory}-category-filter` }
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={ () => toggleFilter(strCategory) }
+    <>
+      <div className="divMain">
+        <Header page="Drinks" history={ history } />
+        <nav className="navigationFilters">
+          <ul
+            style={ {
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              listStyle: 'none',
+              paddingInlineStart: '0',
+            } }
+          >
+            { categoryFilter[0] && (
+              categoryFilter
+                .filter((category, index) => index < NUMBER_INDEX_CATEGORY
+                  || category.strCategory === 'All')
+                .map(({ strCategory }, index) => {
+                  if (strCategory === 'Ordinary Drink') {
+                    return (
+                      <li
+                        key={ index }
+                        style={ {
+                          textAlign: 'center',
+                          padding: '1px 1px',
+                          width: 'auto',
+                        } }
+                      >
+                        <button
+                          data-testid={ `${strCategory}-category-filter` }
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={ () => toggleFilter(strCategory) }
+                        >
+                          Ordinary
+                        </button>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li
+                      key={ index }
+                      style={ {
+                        textAlign: 'center',
+                        padding: '1px 1px',
+                        width: 'auto',
+                      } }
+                    >
+                      <button
+                        data-testid={ `${strCategory}-category-filter` }
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={ () => toggleFilter(strCategory) }
+                      >
+                        { strCategory }
+                      </button>
+                    </li>
+                  );
+                })
+            ) }
+          </ul>
+        </nav>
+        { filteredBySearch.isFiltered ? (
+          <section
+            style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+          >
+            {
+              filteredBySearch.filteredItems
+                .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
+                .map((drinkFiltered, index) => (
+                  <div
+                    className="recipeSection"
+                    key={ drinkFiltered.idDrink }
                   >
-                    { strCategory }
-                  </button>
-                </li>
-              ))
-          ) }
-        </ul>
-      </nav>
-      { filteredBySearch.isFiltered ? (
-        <section
-          style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-        >
-          {
-            filteredBySearch.filteredItems
-              .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
-              .map((drinkFiltered, index) => (
-                <div
-                  key={ drinkFiltered.idDrink }
-                  style={ {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    margin: '20px 0',
-                    width: '50%',
-                  } }
-                >
-                  <CardDrink drink={ drinkFiltered } page="drinks" index={ index } />
-                </div>
-              ))
-          }
-        </section>
-      ) : (
-        <div>
-          { filteredByCategory.isFiltered ? (
-            <section
-              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-            >
-              {
-                filteredByCategory.filteredItems
-                  .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
-                  .map((drinkFiltered, index) => (
-                    <div
-                      key={ drinkFiltered.idDrink }
-                      style={ {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '20px 0',
-                        width: '50%',
-                      } }
-                    >
-                      <CardDrink drink={ drinkFiltered } page="drinks" index={ index } />
-                    </div>
-                  ))
-              }
-            </section>
-          ) : (
-            <section
-              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-            >
-              { inittialDrinks[0] && (
-                inittialDrinks.filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
-                  .map((drink, index) => (
-                    <div
-                      key={ drink.idDrink }
-                      style={ {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '20px 0',
-                        width: '50%',
-                      } }
-                    >
-                      <CardDrink drink={ drink } page="drinks" index={ index } />
-                    </div>
-                  ))
-              ) }
-            </section>
-          ) }
-        </div>
-      )}
+                    <CardDrink drink={ drinkFiltered } page="drinks" index={ index } />
+                  </div>
+                ))
+            }
+          </section>
+        ) : (
+          <div>
+            { filteredByCategory.isFiltered ? (
+              <section
+                style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+              >
+                {
+                  filteredByCategory.filteredItems
+                    .filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
+                    .map((drinkFiltered, index) => (
+                      <div
+                        className="recipeSection"
+                        key={ drinkFiltered.idDrink }
+                      >
+                        <CardDrink
+                          drink={ drinkFiltered }
+                          page="drinks"
+                          index={ index }
+                        />
+                      </div>
+                    ))
+                }
+              </section>
+            ) : (
+              <section
+                style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+              >
+                { inittialDrinks[0] && (
+                  inittialDrinks.filter((_drink, index) => index < NUMBER_INDEX_DRINKS)
+                    .map((drink, index) => (
+                      <div
+                        className="recipeSection"
+                        key={ drink.idDrink }
+                      >
+                        <CardDrink drink={ drink } page="drinks" index={ index } />
+                      </div>
+                    ))
+                ) }
+              </section>
+            ) }
+          </div>
+        )}
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -37,40 +37,45 @@ function Login() {
     disabled();
   }, [inputs]);
   return (
-    <form className="formDiv">
-      <h1 className="logoApp">Food-Trybe</h1>
-      <label htmlFor="inputEmail" onSubmit={ handleSubmit }>
-        <input
-          data-testid="email-input"
-          id="inputEmail"
-          type="email"
-          name="email"
-          value={ inputs.email }
-          placeholder="E-mail"
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="inputPassword">
-        <input
-          data-testid="password-input"
-          id="inputPassword"
-          type="password"
-          name="password"
-          value={ inputs.password }
-          placeholder="Senha"
-          onChange={ handleChange }
-        />
-      </label>
-      <button
-        data-testid="login-submit-btn"
-        type="submit"
-        onClick={ handleSubmit }
-        disabled={ isDisabled }
-        className="btn btn-danger"
-      >
-        Entrar
-      </button>
-    </form>
+    <div className="loginDiv">
+      <div className="imgTruckDiv">
+        <img className="imgTruck" src="https://i.postimg.cc/MHCLF9hG/Purple-Beige-Modern-Food-Truck-Restaurant-Menu-3.png" alt="Food Truck" />
+      </div>
+      <form className="formDiv">
+        <h1 className="logoApp">Food-Trybe</h1>
+        <label htmlFor="inputEmail" onSubmit={ handleSubmit }>
+          <input
+            data-testid="email-input"
+            id="inputEmail"
+            type="email"
+            name="email"
+            value={ inputs.email }
+            placeholder="E-mail"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="inputPassword">
+          <input
+            data-testid="password-input"
+            id="inputPassword"
+            type="password"
+            name="password"
+            value={ inputs.password }
+            placeholder="Senha"
+            onChange={ handleChange }
+          />
+        </label>
+        <button
+          data-testid="login-submit-btn"
+          type="submit"
+          onClick={ handleSubmit }
+          disabled={ isDisabled }
+          className="btn btn-danger"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
   );
 }
 
