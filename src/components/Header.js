@@ -16,37 +16,48 @@ function Header({ page }) {
   }, []);
 
   return (
-    <div className="divHeader">
-      <button
-        data-testid="profile-top-btn"
-        type="button"
-        src={ profileIcon }
-        onClick={ () => history.push('/profile') }
-        className="btn btn-danger"
-      >
-        <img
+    <div className="divSuperiorHeader">
+      <div className="divHeader">
+        <button
+          data-testid="profile-top-btn"
+          type="button"
           src={ profileIcon }
-          alt="profileIcon"
-        />
-      </button>
-      <h1 className="titleSection" data-testid="page-title">{title}</h1>
-      { page === 'Profile'
-        || page === 'Done Recipes' || page === 'Favorite Recipes' ? null : (
-          <button
-            type="button"
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            onClick={ () => setIsSearching(!isSearching) }
-            className="btn btn-danger"
-          >
-            <img
+          onClick={ () => history.push('/profile') }
+          className="btn btn-danger"
+        >
+          <img
+            src={ profileIcon }
+            alt="profileIcon"
+          />
+        </button>
+        <h1
+          className="titleSection"
+          data-testid="page-title"
+          style={ { marginRight: '10px' } }
+        >
+          {title}
+        </h1>
+        { page === 'Profile'
+          || page === 'Done Recipes' || page === 'Favorite Recipes' ? null : (
+            <button
+              type="button"
+              data-testid="search-top-btn"
               src={ searchIcon }
-              alt="searchIcon"
-            />
-          </button>
-        )}
-
-      {isSearching && <SearchBar /> }
+              onClick={ () => setIsSearching(!isSearching) }
+              className="btn btn-danger"
+            >
+              <img
+                src={ searchIcon }
+                alt="searchIcon"
+              />
+            </button>
+          )}
+      </div>
+      {isSearching && (
+        <div>
+          <SearchBar />
+        </div>
+      ) }
     </div>
   );
 }

@@ -20,7 +20,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="searchBar">
       <label htmlFor="searchInput">
         <input
           onChange={ (e) => handleChange(e) }
@@ -29,6 +29,7 @@ function SearchBar() {
           name="searchInput"
           id="searchInput"
           type="text"
+          className="inputText"
         />
       </label>
       <label htmlFor="ingredientSearch">

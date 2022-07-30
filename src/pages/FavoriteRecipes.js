@@ -64,19 +64,79 @@ function FavoriteRecipes() {
         toBeRendered.map((item, index) => {
           if (item.type === 'food') {
             return (
+              <div key={ index } className="recipeSection">
+                <div
+                  className="recipeCard"
+                  style={ {
+                    alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '20px',
+                    width: '70%',
+                  } }
+                >
+                  <Link to={ `foods/${item.id}` }>
+                    <img
+                      data-testid={ `${index}-horizontal-image` }
+                      src={ item.image }
+                      alt="itemCardImg"
+                      style={ { width: '100%' } }
+                    />
+                    <p
+                      data-testid={ `${index}-horizontal-name` }
+                      style={ { textAlign: 'center', fontSize: '18px' } }
+                    >
+                      { item.name }
+                    </p>
+                  </Link>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    style={ { fontSize: '18px' } }
+                  >
+                    { `${item.nationality} - ${item.category}` }
+                  </p>
+                  <div
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    src={ shareIcon }
+                  >
+                    <ShareButton id={ item.id } type="foods" />
+                  </div>
+                  <div
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ blackHeartIcon }
+                    style={ { marginTop: '10px' } }
+                  >
+                    <button
+                      className="btn btn-danger"
+                      data-testid="favorite-btn"
+                      type="button"
+                      onClick={ removeFromFavoriteList }
+                      src={ blackHeartIcon }
+                    >
+                      <img
+                        id={ item.id }
+                        src={ blackHeartIcon }
+                        alt="favoriteIcon"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+          return (
+            <div key={ index } className="recipeSection">
               <div
-                key={ index }
+                className="recipeCard"
                 style={ {
                   alignItems: 'center',
-                  border: '1px solid black',
                   display: 'flex',
                   flexDirection: 'column',
-                  margin: 'auto',
                   padding: '20px',
                   width: '70%',
                 } }
               >
-                <Link to={ `foods/${item.id}` }>
+                <Link to={ `drinks/${item.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
                     src={ item.image }
@@ -94,19 +154,21 @@ function FavoriteRecipes() {
                   data-testid={ `${index}-horizontal-top-text` }
                   style={ { fontSize: '18px' } }
                 >
-                  { `${item.nationality} - ${item.category}` }
+                  { item.alcoholicOrNot }
                 </p>
                 <div
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ shareIcon }
                 >
-                  <ShareButton id={ item.id } type="foods" />
+                  <ShareButton id={ item.id } type="drinks" />
                 </div>
                 <div
                   data-testid={ `${index}-horizontal-favorite-btn` }
                   src={ blackHeartIcon }
+                  style={ { marginTop: '10px' } }
                 >
                   <button
+                    className="btn btn-danger"
                     data-testid="favorite-btn"
                     type="button"
                     onClick={ removeFromFavoriteList }
@@ -119,64 +181,6 @@ function FavoriteRecipes() {
                     />
                   </button>
                 </div>
-              </div>
-            );
-          }
-          return (
-            <div
-              key={ index }
-              style={ {
-                alignItems: 'center',
-                border: '1px solid black',
-                display: 'flex',
-                flexDirection: 'column',
-                margin: 'auto',
-                padding: '20px',
-                width: '70%',
-              } }
-            >
-              <Link to={ `drinks/${item.id}` }>
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ item.image }
-                  alt="itemCardImg"
-                  style={ { width: '100%' } }
-                />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                  style={ { textAlign: 'center', fontSize: '18px' } }
-                >
-                  { item.name }
-                </p>
-              </Link>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-                style={ { fontSize: '18px' } }
-              >
-                { item.alcoholicOrNot }
-              </p>
-              <div
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-              >
-                <ShareButton id={ item.id } type="drinks" />
-              </div>
-              <div
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ blackHeartIcon }
-              >
-                <button
-                  data-testid="favorite-btn"
-                  type="button"
-                  onClick={ removeFromFavoriteList }
-                  src={ blackHeartIcon }
-                >
-                  <img
-                    id={ item.id }
-                    src={ blackHeartIcon }
-                    alt="favoriteIcon"
-                  />
-                </button>
               </div>
             </div>
           );

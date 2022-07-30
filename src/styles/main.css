@@ -3,15 +3,29 @@ html {
 }
 
 body {
-  background-image: url("../cssImages/dinnerTable.jpg");
+  background-color: #fff;
   height: 100vh;
 }
 
 .formDiv {
+  align-items: center;
+  border-radius: 9px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 5%), 0 4px 16px rgb(0 0 0 / 6%);
   display: flex;
   flex-direction: column;
-  margin: 50% auto;
+  margin: 20% auto;
+  padding: 10%;
   width: 60%;
+}
+
+.loginDiv {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.btn-danger {
+  width: 200px;
 }
 
 .logoApp {
@@ -28,13 +42,31 @@ body {
 }
 
 .recipeCard:hover {
-  box-shadow: 2px 2px gray;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 20%), 0 4px 16px rgb(0 0 0 / 30%);
+}
+
+.divMain {
+  height: 1480px;
+}
+
+.imgTruckDiv {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.imgTruck {
+  width: 80%;
 }
 
 .insideFooter {
   display: flex;
   justify-content: space-between;
   width: 100vw;
+}
+
+.insideFooter button {
+  width: 100%;
 }
 
 .detailsItem {
@@ -61,8 +93,24 @@ body {
   margin-left: 5px;
 }
 
+.btnsCategoryProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btnsCategoryProfile button {
+  margin-bottom: 20px;
+}
+
+.btnsProfile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .emailProfile {
-  color: white;
+  color: rgb(255, 0, 0, 70%);
   font-family: 'Lobster', cursive;
   font-size: 30px;
   text-align: center;
@@ -73,4 +121,67 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.recipeSection {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+  width: 50%;
+}
+
+.divCarousel {
+  width: 60%;
+}
+
+.searchBar {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar .inputText {
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 960px ) {
+  .divCarousel {
+    width: 40%;
+  }
+  .recipeSection {
+    width: 20%;
+    justify-content: space-evenly;
+  }
+  .loginDiv {
+    align-items: center;
+    flex-direction: row;
+    margin-right: 50px;
+    padding: 3%;
+  }
+  .btn-danger {
+    width: 200px;
+  }
+  .imgTruck {
+    width: 100%;
+  }
+  .divMain {
+    height: 1200px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .recipeSection {
+    width: 100%;
+  }
+  .divCarousel {
+    width: 100%;
+  }
+  .formDiv input {
+    width: 120px;
+  }
+  .btn-danger {
+    width: 120px;
+  }
 }

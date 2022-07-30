@@ -31,7 +31,7 @@ function CarouselFadeExample() {
   }, [recommended]);
 
   return (
-    <div>
+    <div className="divCarousel">
       {recommendedData && recommendedData.length > 0 && (
         <Carousel fade>
           <Carousel.Item>
@@ -51,10 +51,6 @@ function CarouselFadeExample() {
                 alt={ recommendedData[1].name }
               />
             </div>
-            <Carousel.Caption>
-              <p data-testid="0-recomendation-title">{recommendedData[0].name}</p>
-              <p data-testid="1-recomendation-title">{recommendedData[1].name}</p>
-            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={ 2000 }>
             <div
@@ -73,10 +69,6 @@ function CarouselFadeExample() {
                 alt={ recommendedData[3].name }
               />
             </div>
-            <Carousel.Caption>
-              <p data-testid="2-recomendation-title">{recommendedData[2].name}</p>
-              <p data-testid="3-recomendation-title">{recommendedData[3].name}</p>
-            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={ 2000 }>
             <div
@@ -96,10 +88,6 @@ function CarouselFadeExample() {
               />
               <p>{ recommendedData[5].name }</p>
             </div>
-            <Carousel.Caption>
-              <p data-testid="4-recomendation-title">{recommendedData[4].name}</p>
-              <p data-testid="5-recomendation-title">{recommendedData[5].name}</p>
-            </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       )}

@@ -15,9 +15,9 @@ function Profile() {
     <>
       <Header page="Profile" history={ history } />
       {storage && (
-        <div>
+        <div className="btnsProfile">
           <p data-testid="profile-email" className="emailProfile">{ storage.email }</p>
-          <div className="btnsCategory">
+          <div className="btnsCategoryProfile">
             <button
               data-testid="profile-done-btn"
               type="button"

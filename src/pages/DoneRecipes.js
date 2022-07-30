@@ -55,21 +55,23 @@ function DoneRecipes() {
       && (toBeRendered.map((item, index) => {
         if (item.type === 'food') {
           return (
-            <CardFood
-              key={ item.id }
-              meal={ item }
-              page="doneRecipes"
-              index={ index }
-            />
+            <div key={ item.id } className="recipeSection">
+              <CardFood
+                meal={ item }
+                page="doneRecipes"
+                index={ index }
+              />
+            </div>
           );
         }
         return (
-          <CardDrink
-            key={ item.id }
-            drink={ item }
-            page="doneRecipes"
-            index={ index }
-          />
+          <div key={ item.id } className="recipeSection">
+            <CardDrink
+              drink={ item }
+              page="doneRecipes"
+              index={ index }
+            />
+          </div>
         );
       })
       ) }

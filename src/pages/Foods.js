@@ -84,116 +84,103 @@ function Foods() {
   }
 
   return (
-    <div className="divMain">
-      <Header page="Foods" history={ history } />
-      <nav className="navigationFilters">
-        <ul
-          style={ {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            listStyle: 'none',
-            paddingInlineStart: '0',
-          } }
-        >
-          { categoryFilter[0] && (
-            categoryFilter
-              .filter((category, index) => index < NUMBER_INDEX_CATEGORY
-                || category.strCategory === 'All')
-              .map(({ strCategory }) => (
-                <li
-                  key={ strCategory }
-                  style={ {
-                    textAlign: 'center',
-                    padding: '1px 1px',
-                    width: 'auto',
-                  } }
-                >
-                  <button
-                    data-testid={ `${strCategory}-category-filter` }
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={ () => toggleFilter(strCategory) }
+    <>
+      <div className="divMain">
+        <Header page="Foods" history={ history } />
+        <nav className="navigationFilters">
+          <ul
+            style={ {
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              listStyle: 'none',
+              paddingInlineStart: '0',
+            } }
+          >
+            { categoryFilter[0] && (
+              categoryFilter
+                .filter((category, index) => index < NUMBER_INDEX_CATEGORY
+                  || category.strCategory === 'All')
+                .map(({ strCategory }) => (
+                  <li
+                    key={ strCategory }
+                    style={ {
+                      textAlign: 'center',
+                      padding: '1px 1px',
+                      width: 'auto',
+                    } }
                   >
-                    { strCategory }
-                  </button>
-                </li>
-              ))
-          ) }
-        </ul>
-      </nav>
-      { filteredBySearch.isFiltered ? (
-        <section
-          style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-        >
-          {
-            filteredBySearch.filteredItems
-              .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
-              .map((mealFiltered, index) => (
-                <div
-                  key={ mealFiltered.idMeal }
-                  style={ {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    margin: '20px 0',
-                    width: '50%',
-                  } }
-                >
-                  <CardFood meal={ mealFiltered } page="foods" index={ index } />
-                </div>
-              ))
-          }
-        </section>
-      ) : (
-        <div>
-          { filteredByCategory.isFiltered ? (
-            <section
-              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-            >
-              {
-                filteredByCategory.filteredItems
-                  .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
-                  .map((mealFiltered, index) => (
-                    <div
-                      key={ mealFiltered.idMeal }
-                      style={ {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '20px 0',
-                        width: '50%',
-                      } }
+                    <button
+                      data-testid={ `${strCategory}-category-filter` }
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={ () => toggleFilter(strCategory) }
                     >
-                      <CardFood meal={ mealFiltered } page="foods" index={ index } />
-                    </div>
-                  ))
-              }
-            </section>
-          ) : (
-            <section
-              style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
-            >
-              { inittialFoods[0] && (
-                inittialFoods.filter((_meal, index) => index < NUMBER_INDEX_MEALS)
-                  .map((meal, index) => (
-                    <div
-                      key={ meal.idMeal }
-                      style={ {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '20px 0',
-                        width: '50%',
-                      } }
-                    >
-                      <CardFood meal={ meal } page="foods" index={ index } />
-                    </div>
-                  ))
-              ) }
-            </section>
-          ) }
-        </div>
-      ) }
+                      { strCategory }
+                    </button>
+                  </li>
+                ))
+            ) }
+          </ul>
+        </nav>
+        { filteredBySearch.isFiltered ? (
+          <section
+            style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+          >
+            {
+              filteredBySearch.filteredItems
+                .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
+                .map((mealFiltered, index) => (
+                  <div
+                    className="recipeSection"
+                    key={ mealFiltered.idMeal }
+                  >
+                    <CardFood meal={ mealFiltered } page="foods" index={ index } />
+                  </div>
+                ))
+            }
+          </section>
+        ) : (
+          <div>
+            { filteredByCategory.isFiltered ? (
+              <section
+                style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+              >
+                {
+                  filteredByCategory.filteredItems
+                    .filter((_meal, index) => index < NUMBER_INDEX_MEALS)
+                    .map((mealFiltered, index) => (
+                      <div
+                        className="recipeSection"
+                        key={ mealFiltered.idMeal }
+                      >
+                        <CardFood meal={ mealFiltered } page="foods" index={ index } />
+                      </div>
+                    ))
+                }
+              </section>
+            ) : (
+              <section
+                style={ { display: 'flex', flexWrap: 'wrap', alignItems: 'center' } }
+              >
+                { inittialFoods[0] && (
+                  inittialFoods.filter((_meal, index) => index < NUMBER_INDEX_MEALS)
+                    .map((meal, index) => (
+                      <div
+                        className="recipeSection"
+                        key={ meal.idMeal }
+                      >
+                        <CardFood meal={ meal } page="foods" index={ index } />
+                      </div>
+                    ))
+                ) }
+              </section>
+            ) }
+          </div>
+        ) }
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
