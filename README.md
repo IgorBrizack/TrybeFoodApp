@@ -10,7 +10,7 @@ This project we made with React.Js and Context-API with the help of Local Storag
 
 This is the last project from the Front-end module of Trybe, it's the biggest application we did during this period.<br>
 
-The purpose of this project is to create a apllication that cand find some examples of recipes to eat or drink, and some interactions was solicited, like the user can share the recipe or add it as favorite and others stuffs.<br>
+The purpose of this project is to create a apllication that can find some examples of recipes to eat or drink, and some interactions was solicited, like the user can share the recipe or add it as favorite and others stuffs.<br>
 
 Was necessary to test our apllication to reach 90% of coverage, using jest and RTL<br>
 
