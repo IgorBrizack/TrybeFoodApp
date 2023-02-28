@@ -27,7 +27,7 @@ Projeto feito utilizando React.Js e Context-API com a ajuda do Local Storage par
 
 Essa aplicação foi a última do módulo de Front-end proposto pela Trybe, foi a maior aplicação já feita durante todo o período.<br>
 
-A proposta do projeto era criar uma aplicação capaz de encontrar algumas receitas de comidas e bebida, e algumas interações foram solicitas, exemplo o usuário pode compartilhar o link da receita ou adicionar como favorito e outras coisas.<br>
+A proposta do projeto era criar uma aplicação capaz de encontrar algumas receitas de comidas e bebida consumidas de uma API, e algumas interações foram solicitadas, exemplo o usuário pode compartilhar o link da receita ou adicionar como favorito e etc.<br>
 
 Foi necessário criar testes que cobrisse 90% da nossa aplicação, usando jest e RTL <br>
 
