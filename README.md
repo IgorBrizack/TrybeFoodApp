@@ -14,6 +14,8 @@ The purpose of this project is to create a apllication that can find some exampl
 
 Was necessary to test our apllication to reach 90% of coverage, using jest and RTL<br>
 
+Start with npm start -> Login example: mail@mail.com password: 1234567
+
 
 #  Projeto Trybe App de Receitas​
 
@@ -30,5 +32,7 @@ Essa aplicação foi a última do módulo de Front-end proposto pela Trybe, foi 
 A proposta do projeto era criar uma aplicação capaz de encontrar algumas receitas de comidas e bebida consumidas de uma API, e algumas interações foram solicitadas, exemplo o usuário pode compartilhar o link da receita ou adicionar como favorito e etc.<br>
 
 Foi necessário criar testes que cobrisse 90% da nossa aplicação, usando jest e RTL <br>
+
+inicie com npm start -> Login example: mail@mail.com password: 1234567
 
 
